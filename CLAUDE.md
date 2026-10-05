@@ -377,6 +377,16 @@ Verify each milestone, then summarize what was done and anything the user must d
 - `--as-of` runs write to `data/work/asof_<YYYY-MM>/` so they never overwrite the
   default run.
 
+- Structured output: extract (Haiku 4.5) uses forced tool use as specified. Opus 5.5
+  and Sonnet 5.5 return a 400 on forced `tool_choice`, so themes, analyst, and skeptic
+  use structured outputs (`messages.parse` with the Pydantic models) at effort `high`,
+  with server-side refusal fallbacks (`fallbacks: "default"`). `--batch` applies to
+  extract only, because batches reject the fallback parameter.
+- `extract` refuses to spend without an interactive yes or `--yes`. themes, analyst,
+  and skeptic save after each cluster and skip finished clusters unless `--force`.
+- The analyst writes `evidence.json`; the skeptic reads that same file, so both
+  agents see identical evidence.
+
 ### Findings from the real RECENT data (2026-10-05)
 
 - 6,884,299 unique complaints; 90% are credit reporting. Dates run 2025-09-01 to

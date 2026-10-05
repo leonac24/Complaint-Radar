@@ -377,6 +377,19 @@ Verify each milestone, then summarize what was done and anything the user must d
 - `--as-of` runs write to `data/work/asof_<YYYY-MM>/` so they never overwrite the
   default run.
 
+### Findings from the real RECENT data (2026-10-05)
+
+- 6,884,299 unique complaints; 90% are credit reporting. Dates run 2025-09-01 to
+  2026-08-31 at normal daily volume, so August 2026 is **not** partial by date
+  received. `complete_months` is data-driven and keeps it.
+- Narrative share decays toward the end of the window (16% in Sep 2025, 1.5% in
+  Jul 2026, ~0% in Aug 2026), consistent with a publication lag. Recent-month
+  narrative samples are thin; the extract step must report how many it found.
+- CFPB uses near-duplicate issue labels ("...existing issue" vs "...existing
+  problem"), which split one cluster in two and can fake acceleration. Open question
+  for the user: merge known label variants, or leave it for the skeptic.
+- Top velocity is 1.77x; 35% of narratives are templated; 8 of 79 clusters >= 20%.
+
 ## 13. Out of scope
 
 User accounts, real bank data, live CFPB API calls, chat interfaces, mobile apps,

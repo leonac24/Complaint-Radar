@@ -1,0 +1,13 @@
+.env
+data/
+complaint-radar-data-spike.zip
+data_spike/raw/
+data_spike/work/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+.next/
+frontend/public/data/
+.DS_Store

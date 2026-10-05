@@ -2,7 +2,7 @@
 RADAR := cd backend && uv run python -m radar.cli
 EXPORTS ?= recent
 
-.PHONY: setup data data-fixtures pipeline dry-run api web test
+.PHONY: setup data data-fixtures pipeline export dry-run api web test
 
 setup:
 	cd backend && uv sync
@@ -24,6 +24,11 @@ pipeline:
 	$(RADAR) themes
 	$(RADAR) analyst
 	$(RADAR) skeptic
+	$(RADAR) export
+
+## Rewrite public_data/ from data/work/ (no AI, free)
+export:
+	$(RADAR) export
 
 ## What extract would call and cost, without calling anything
 dry-run:

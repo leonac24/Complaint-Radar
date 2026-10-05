@@ -382,6 +382,12 @@ Verify each milestone, then summarize what was done and anything the user must d
   and each one used to discard the whole extraction.
 - First full run (2026-10-05, Sonnet for themes and skeptic): 25 clusters, 15 kept,
   10 rejected. Failed checks: seasonality 8, thin_evidence 3, templating 2.
+- `export` writes `radar_<month>` only for months with velocity history (Dec 2025 to
+  Aug 2026; the first 3 window months have no baseline). AI fields exist only for the
+  analysis month; earlier months carry statistics with AI fields null, never a copy of
+  the analysis month's brief. `meta.json` adds `radar_months`, `analysis_month`, and
+  `available` (which optional files exist). The API serves the exported files, so the
+  two cannot disagree; a missing file is a 404 naming the command to run.
 - `ingest` keeps the `EXPORTS` dict (keyed by covered months) and `COLUMNS`/`snake()`
   matching from `data_spike/spike.py`; `--exports` accepts `recent`, `all`, or
   comma-separated keys. Dedupe prefers the copy of a complaint that has a narrative.

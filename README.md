@@ -25,7 +25,7 @@ signals, never as findings of wrongdoing.
 | 1. Skeleton, fixtures, tests | Done |
 | 2. Data: ingest, emergence, templating | Done, run on real data |
 | 3. AI layer: extract, themes, analyst, skeptic | Done, run on real data |
-| 4. Export and API | Not started |
+| 4. Export and API | Done |
 | 5. Frontend radar | Not started |
 | 6. Bank lens, backtests, method page | Not started |
 | 7. Evaluation | Not started |
@@ -43,7 +43,7 @@ flowchart LR
     E --> F[themes<br/>root causes beyond<br/>the form categories]
     F --> G[analyst agent<br/>writes the brief]
     G --> H[skeptic agent<br/>keeps or rejects]
-    H --> I[export<br/>static JSON]
+    H --> I[export<br/>static JSON + API]
     I --> J[radar UI]
 ```
 
@@ -124,7 +124,8 @@ Real data:
 ```bash
 make data                     # download + normalize the CFPB archive (recent window)
 make dry-run                  # show how many AI calls extract would make, and the cost
-make pipeline                 # emergence, templating, extract, themes, analyst, skeptic
+make pipeline                 # emergence, templating, extract, themes, analyst, skeptic, export
+make api                      # serve public_data/ at http://localhost:8000/api
 ```
 
 Synthetic data, for development without a download:

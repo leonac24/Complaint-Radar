@@ -217,3 +217,27 @@ class ClusterDetail(BaseModel):
     brief: Brief | None
     skeptic: SkepticReview | None
     examples: list[ExampleSummary]
+
+
+class ModelIds(BaseModel):
+    fast: str
+    writer: str
+    reasoning: str
+
+
+class Meta(BaseModel):
+    source: str
+    source_url: str
+    window_start: str
+    window_end: str
+    # Months with a radar file. The first months of the window are missing because
+    # velocity needs recent and baseline months before them.
+    radar_months: list[str]
+    # The month the AI steps ran on; other months carry statistics only.
+    analysis_month: str
+    total_complaints: int
+    clusters_with_briefs: int
+    generated_at: str
+    models: ModelIds
+    # Optional files that exist in this export, e.g. "backtests", "evaluation".
+    available: list[str]

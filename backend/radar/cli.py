@@ -13,11 +13,11 @@ from pathlib import Path
 
 import pandas as pd
 
-from radar import emergence, extract, ingest, templating, themes
+from radar import emergence, export, extract, ingest, templating, themes
 from radar.agents import analyst, evidence, skeptic
 from radar.config import Settings, get_settings
 from radar.llm import LLM, ClaudeLLM, LLMError
-from radar.schemas import Brief, EmergenceResult, ThemeOut
+from radar.schemas import Brief, EmergenceResult, ModelIds, SkepticReview, ThemeOut
 
 
 def step_dir(settings: Settings, as_of: str | None) -> Path:
@@ -244,6 +244,43 @@ def cmd_skeptic(args: argparse.Namespace, settings: Settings) -> None:
           f"-> {out_dir / 'skeptic.json'}")
 
 
+def load_ai_outputs(settings: Settings) -> export.AIOutputs:
+    """Whatever the AI steps have produced so far; missing steps give empty maps."""
+    work = settings.work_dir
+    index: dict = read_json(work / "extract_sample.json", {})
+    cache = extract.load_cache(extraction_cache_path(settings))
+    theme_map: dict = read_json(work / "themes.json", {})
+    themed = {cid: _themes_for(entry) for cid, entry in theme_map.items()}
+    return export.AIOutputs(
+        themes={cid: found for cid, found in themed.items() if found is not None},
+        briefs={cid: Brief.model_validate(b)
+                for cid, b in read_json(work / "briefs.json", {}).items()},
+        reviews={cid: SkepticReview.model_validate(r)
+                 for cid, r in read_json(work / "skeptic.json", {}).items()},
+        samples={cid: {x: cache[x] for x in ids if x in cache} for cid, ids in index.items()},
+    )
+
+
+def cmd_export(args: argparse.Namespace, settings: Settings) -> None:
+    df = load_complaints(settings)
+    marked = pd.read_parquet(require(settings.work_dir / "fingerprints.parquet", "templating"))
+    analysis = load_emergence(settings, None)
+    shares: dict = read_json(require(settings.work_dir / "templating.json", "templating"), {})
+    ai = load_ai_outputs(settings)
+    models = ModelIds(fast=settings.model_fast, writer=settings.model_writer,
+                      reasoning=settings.model_reasoning)
+    public = settings.public_dir
+    files = export.build(df, marked, analysis, shares, ai, models,
+                         export.available_optional(public))
+    size = export.write(public, files)
+    months = sum(name.startswith("radar_") for name in files)
+    clusters = sum(name.startswith("cluster_") for name in files)
+    print(f"export: {months} radar months, {clusters} cluster files, {len(ai.briefs)} with "
+          f"briefs, {size / 1e6:.1f} MB -> {public}")
+    if size > export.SIZE_LIMIT_BYTES:
+        print(f"  warning: over the {export.SIZE_LIMIT_BYTES // 2**20} MB budget")
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="radar", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -283,6 +320,9 @@ def build_parser() -> argparse.ArgumentParser:
         p.add_argument("--clusters", type=int, default=25)
         p.add_argument("--force", action="store_true", help="redo clusters already done")
         p.set_defaults(func=func)
+
+    p = sub.add_parser("export", help="write static JSON for the frontend to public_data/")
+    p.set_defaults(func=cmd_export)
 
     return parser
 

@@ -258,14 +258,17 @@ performance requires it.
 
 ### Visual direction
 The radar is one instrument sitting on a calm, light page. It is not a dark-mode
-dashboard, and it must not use the cliché green phosphor look.
-- Page: fog grey `#ECEFEE`, text ink `#1D2B33`, secondary text `#5A6B73`.
-- Scope surface: deep teal ink `#102A35`, ring lines `rgba(204,226,224,0.18)`.
-- Sweep arm: pale sea glass `#CCE2E0` fading to transparent.
-- Severity scale for blips: `#9FC9C0` (low), `#E8B04A`, `#E5793B`, `#C8402F` (high).
-- Rejected clusters: hollow grey outline `#8A979D`.
-- Type: one sans family for UI (e.g. Instrument Sans) and one serif for brief prose
-  (e.g. Source Serif 4), loaded from Google Fonts with system fallbacks. Sentence case.
+dashboard, and it must not use the cliché green phosphor look. The approved mockup is
+`Complaint Radar Mockups.dc.html` in the claude.ai/design project (violet ink palette;
+it replaced the earlier teal direction). Tokens live in `frontend/app/globals.css`.
+- Page: lavender grey `#E9E7EC`, surfaces `#F6F5F8`, text ink `#1E1B2E`, secondary
+  text `#5E5870`, links `#4B3F8A`.
+- Scope surface: deep violet ink `#1B1630`, ring lines `rgba(220,214,240,0.18)`.
+- Sweep arm: pale lavender `#DCD6F0` fading to transparent.
+- Severity scale for blips: `#A9CFE0` (low), `#EFC15A`, `#E8833A`, `#C23B4E` (high).
+- Rejected clusters: hollow outline `#8E879C`.
+- Type: Familjen Grotesk for UI, Spectral for brief prose, Martian Mono for complaint
+  IDs and model ids, loaded from Google Fonts with system fallbacks. Sentence case.
   No all-caps labels.
 - Spend motion in one place: the sweep. Everything else is still unless the user acts.
 
@@ -287,9 +290,10 @@ On narrow screens the brief panel becomes a sheet below the scope.
 
 ### The radar scope
 - Sectors: one wedge per `product_family`, labeled at the rim.
-- Radius encodes velocity: blips sit on a log scale from the center (velocity <= 1)
-  to the outer ring (velocity >= 4). Accelerating issues literally move outward as
-  the month slider advances. Animate position changes between months.
+- Radius encodes velocity on a log scale from 0.8 at the center to 2 at the rim,
+  with rings at 1, 1.25, 1.5 and 2 (real velocities top out near 1.8, so a 1-to-4
+  scale crowded every blip into the middle). Accelerating issues move outward as the
+  month slider advances. Animate position changes between months.
 - Blip size encodes recent volume (sqrt scale). Fill color encodes severity.
 - Kept briefs are filled; rejected briefs are hollow outlines.
 - The sweep arm rotates continuously (one turn every 6 seconds). A blip brightens
@@ -388,6 +392,12 @@ Verify each milestone, then summarize what was done and anything the user must d
   the analysis month's brief. `meta.json` adds `radar_months`, `analysis_month`, and
   `available` (which optional files exist). The API serves the exported files, so the
   two cannot disagree; a missing file is a 404 naming the command to run.
+- Frontend: all radar months load up front. Months other than the analysis month show
+  neutral blips (no brief, severity, or verdict for that month); selecting one shows
+  that month's statistics and the analysis month's brief, labelled as such. The slider
+  starts at the first month with velocity history (Dec 2025). The bank lens is built
+  client-side from each cluster's top-10 companies until `lens` precomputes it; lift
+  between 0.8 and 1.2 reads "in line with peers".
 - `ingest` keeps the `EXPORTS` dict (keyed by covered months) and `COLUMNS`/`snake()`
   matching from `data_spike/spike.py`; `--exports` accepts `recent`, `all`, or
   comma-separated keys. Dedupe prefers the copy of a complaint that has a narrative.

@@ -1,0 +1,140 @@
+.scope {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 18px;
+  background: var(--scope);
+  overflow: hidden;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  transition: opacity 400ms ease;
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.sweep {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+  background: conic-gradient(
+    from 0deg,
+    rgba(220, 214, 240, 0) 0deg,
+    rgba(220, 214, 240, 0) 285deg,
+    rgba(220, 214, 240, 0.05) 320deg,
+    rgba(220, 214, 240, 0.26) 360deg
+  );
+}
+
+.arm {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 2px;
+  margin-left: -1px;
+  height: 50%;
+  background: linear-gradient(to top, rgba(220, 214, 240, 0.1), var(--scope-ink-2));
+}
+
+.core {
+  fill: rgba(220, 214, 240, 0.05);
+}
+
+.ring {
+  fill: none;
+  stroke: var(--scope-ring);
+  stroke-width: 1;
+}
+
+.blip {
+  cursor: pointer;
+  outline: none;
+}
+
+.cap {
+  fill: none;
+  stroke: rgba(220, 214, 240, 0.6);
+  stroke-width: 1;
+  stroke-dasharray: 2 3;
+}
+
+.selected {
+  fill: none;
+  stroke: var(--scope-ink);
+  stroke-width: 2.5;
+}
+
+.focus {
+  fill: none;
+  stroke: var(--focus);
+  stroke-width: 2;
+  stroke-dasharray: 4 3;
+}
+
+.ringLabel,
+.familyLabel {
+  position: absolute;
+  pointer-events: none;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.ringLabel {
+  transform: translateY(-100%);
+  color: var(--scope-ink-3);
+  font-size: 11px;
+}
+
+.familyLabel {
+  transform: translate(-50%, -50%);
+  color: var(--scope-ink-2);
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+.tip {
+  position: absolute;
+  transform: translate(-50%, calc(-100% - 16px));
+  background: var(--scope-ink);
+  color: var(--ink);
+  border-radius: 10px;
+  padding: 9px 12px;
+  width: max-content;
+  max-width: 280px;
+  font-size: 13px;
+  line-height: 1.35;
+  pointer-events: none;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.tipTitle {
+  font-weight: 600;
+}
+
+.tipMeta {
+  color: var(--ink-2);
+  margin-top: 3px;
+}
+
+@media (max-width: 520px) {
+  .familyLabel {
+    font-size: 11px;
+  }
+
+  .ringLabel {
+    font-size: 9px;
+  }
+
+  .tip {
+    display: none;
+  }
+}

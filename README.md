@@ -26,8 +26,8 @@ signals, never as findings of wrongdoing.
 | 2. Data: ingest, emergence, templating | Done, run on real data |
 | 3. AI layer: extract, themes, analyst, skeptic | Done, run on real data |
 | 4. Export and API | Done |
-| 5. Frontend radar | Not started |
-| 6. Bank lens, backtests, method page | Not started |
+| 5. Frontend radar | Done |
+| 6. Bank lens, backtests, method page | Partly: method page done, lens built from top companies, backtests not run |
 | 7. Evaluation | Not started |
 | 8. Polish, screenshots, demo recording | Not started |
 
@@ -110,12 +110,13 @@ added here once the evaluation step (milestone 7) has run.
 
 ## Running it
 
-Requirements: Python 3.11+, [uv](https://docs.astral.sh/uv/), and an Anthropic API key
-for the AI steps.
+Requirements: Python 3.11+, [uv](https://docs.astral.sh/uv/), Node 18+ for the frontend,
+and an Anthropic API key for the AI steps.
 
 ```bash
 cp .env.example .env          # add ANTHROPIC_API_KEY
 make setup                    # install backend dependencies
+cd frontend && npm install    # install frontend dependencies
 make test                     # no network or API key needed
 ```
 
@@ -126,6 +127,7 @@ make data                     # download + normalize the CFPB archive (recent wi
 make dry-run                  # show how many AI calls extract would make, and the cost
 make pipeline                 # emergence, templating, extract, themes, analyst, skeptic, export
 make api                      # serve public_data/ at http://localhost:8000/api
+make web                      # radar UI at http://localhost:3000 (reads public_data/)
 ```
 
 Synthetic data, for development without a download:
@@ -161,6 +163,7 @@ Setting `RADAR_MODEL_REASONING=claude-sonnet-5-5` roughly halves the cost of a
 ```
 backend/radar/     pipeline steps, Claude client, agents, CLI
 backend/tests/     synthetic CFPB-format fixtures and unit tests
+frontend/          Next.js 14 radar UI (static export; reads public_data/)
 data_spike/        original data exploration script
 data/              downloaded and intermediate data (gitignored)
 public_data/       precomputed JSON for the deployed demo

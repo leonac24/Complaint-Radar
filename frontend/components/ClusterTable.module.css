@@ -1,0 +1,104 @@
+.wrap {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: auto;
+  max-height: 720px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.table th {
+  padding: 0;
+  border-bottom: 1px solid var(--line);
+  font-weight: 500;
+  text-align: left;
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+}
+
+.table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line-soft);
+  vertical-align: top;
+}
+
+.sort,
+.sortOn {
+  all: unset;
+  cursor: pointer;
+  display: block;
+  padding: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  color: var(--ink);
+  text-align: inherit;
+}
+
+.sortOn {
+  font-weight: 600;
+}
+
+.sort:focus-visible,
+.sortOn:focus-visible,
+.rowButton:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: -2px;
+}
+
+.dir {
+  color: var(--ink-2);
+}
+
+.num {
+  text-align: right !important;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.selected {
+  background: #e6e1ee;
+}
+
+.rowButton {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.issue {
+  font-weight: 500;
+}
+
+.product {
+  color: var(--ink-2);
+  font-size: 12px;
+}
+
+.sev {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.foot {
+  padding: 10px 12px;
+  color: var(--ink-2);
+  font-size: 12px;
+}
+
+.verdict {
+  white-space: nowrap;
+}

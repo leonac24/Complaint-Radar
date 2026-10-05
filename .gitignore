@@ -11,3 +11,7 @@ node_modules/
 .next/
 frontend/public/data/
 .DS_Store
+frontend/public/data/
+frontend/.next/
+frontend/out/
+frontend/tsconfig.tsbuildinfo

@@ -1,0 +1,104 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.note {
+  font-size: 13px;
+  color: var(--ink-2);
+  text-align: right;
+}
+
+.chart {
+  position: relative;
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.base {
+  fill: var(--line-soft);
+}
+
+.recent {
+  fill: #d8d2e4;
+}
+
+.marker {
+  stroke: var(--ink);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.line {
+  fill: none;
+  stroke: var(--scope);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.dot,
+.peak {
+  stroke: var(--scope);
+  stroke-width: 1.5;
+}
+
+.dot {
+  fill: var(--surface);
+}
+
+.peak {
+  fill: #e8833a;
+}
+
+.hit {
+  fill: transparent;
+}
+
+.hitOn {
+  fill: rgba(75, 63, 138, 0.08);
+}
+
+.peakLabel,
+.band {
+  position: absolute;
+  white-space: nowrap;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.peakLabel {
+  transform: translate(-50%, -100%);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.band {
+  bottom: 0;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: var(--ink-2);
+}
+
+.ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--ink-2);
+}

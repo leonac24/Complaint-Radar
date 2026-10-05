@@ -377,6 +377,11 @@ Verify each milestone, then summarize what was done and anything the user must d
   own terms, never against total volume. The first prompt rejected every brief.
 - To fit a $25 budget, `.env` sets `RADAR_MODEL_REASONING=claude-sonnet-5-5`, so
   themes and skeptic run on Sonnet 5.5 instead of Opus 5.5 (full run about $3-4).
+- `Extraction` maps an off-list `root_cause_family` or `journey_stage` to `other` and
+  a placeholder amount ("<UNKNOWN>") to null. Haiku did both in 37 of 882 batch calls,
+  and each one used to discard the whole extraction.
+- First full run (2026-10-05, Sonnet for themes and skeptic): 25 clusters, 15 kept,
+  10 rejected. Failed checks: seasonality 8, thin_evidence 3, templating 2.
 - `ingest` keeps the `EXPORTS` dict (keyed by covered months) and `COLUMNS`/`snake()`
   matching from `data_spike/spike.py`; `--exports` accepts `recent`, `all`, or
   comma-separated keys. Dedupe prefers the copy of a complaint that has a narrative.

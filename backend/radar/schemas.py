@@ -7,9 +7,9 @@ never guessed.
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import Any, Literal, get_args
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 RootCauseFamily = Literal[
     "fees_and_charges",
@@ -85,6 +85,24 @@ class Extraction(BaseModel):
     severity: int = Field(ge=1, le=5)
     summary: str
     looks_templated: bool
+
+    # Haiku occasionally writes "<UNKNOWN>" for a null amount or invents a category
+    # name; both used to fail the whole extraction.
+    @field_validator("money_at_stake_usd", mode="before")
+    @classmethod
+    def _placeholder_amount_is_null(cls, value: Any) -> Any:
+        if isinstance(value, str):
+            try:
+                return float(value.replace("$", "").replace(",", ""))
+            except ValueError:
+                return None
+        return value
+
+    @field_validator("root_cause_family", "journey_stage", mode="before")
+    @classmethod
+    def _unknown_category_is_other(cls, value: Any, info: Any) -> Any:
+        allowed = get_args(cls.model_fields[info.field_name].annotation)
+        return value if value in allowed else "other"
 
 
 class ThemeOut(BaseModel):

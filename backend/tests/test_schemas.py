@@ -39,7 +39,7 @@ def test_ai_fields_may_be_null_before_ai_steps_run() -> None:
     RadarFile.model_validate({"month": "2026-07", "clusters": [cluster]})
 
 
-def test_extraction_rejects_bad_enum_and_severity() -> None:
+def test_extraction_maps_unknown_enum_to_other_and_rejects_bad_severity() -> None:
     good = {
         "root_cause": "dispute not investigated",
         "root_cause_family": "disputes_and_errors",
@@ -52,8 +52,7 @@ def test_extraction_rejects_bad_enum_and_severity() -> None:
         "looks_templated": False,
     }
     Extraction.model_validate(good)
-    with pytest.raises(ValidationError):
-        Extraction.model_validate({**good, "root_cause_family": "made_up"})
+    assert Extraction.model_validate({**good, "root_cause_family": "made_up"}).root_cause_family == "other"
     with pytest.raises(ValidationError):
         Extraction.model_validate({**good, "severity": 6})
 
@@ -63,3 +62,19 @@ def test_theme_set_bounds() -> None:
     with pytest.raises(ValidationError):
         ThemeSet.model_validate({"themes": [theme]})
     ThemeSet.model_validate({"themes": [theme] * 5})
+
+
+def test_extraction_tolerates_placeholder_amount_and_unknown_category() -> None:
+    from radar.schemas import Extraction
+
+    base = {
+        "root_cause": "r", "root_cause_family": "fees_and_charges", "journey_stage": "payment",
+        "harm": "h", "money_at_stake_usd": 10, "vulnerable_consumer": False, "severity": 3,
+        "summary": "s", "looks_templated": False,
+    }
+    loose = Extraction.model_validate(
+        {**base, "money_at_stake_usd": "<UNKNOWN>", "journey_stage": "servicing"}
+    )
+    assert loose.money_at_stake_usd is None
+    assert loose.journey_stage == "other"
+    assert Extraction.model_validate({**base, "money_at_stake_usd": "$1,250"}).money_at_stake_usd == 1250

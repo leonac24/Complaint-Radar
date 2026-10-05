@@ -85,7 +85,7 @@ From the RECENT window (September 2025 to August 2026):
 - Narrative share falls toward the end of the window (16% in September 2025, 1.5% in
   July 2026), which is consistent with a publication lag. Recent samples are thinner.
 
-**The skeptic at work.** On the top three clusters by velocity it kept one brief and
+**The skeptic at work.** Of the top three clusters by velocity, it kept one brief and
 rejected two:
 
 | Cluster | Verdict | Skeptic's note |
@@ -94,8 +94,19 @@ rejected two:
 | Credit reporting: dispute investigations (specialty reporters) | Rejected | Fell from 922 to 299 after a June peak; 4 recent narratives, half templated |
 | Credit reporting: dispute investigations (national bureaus) | Kept | Broad, sustained, market-wide rise with low templating |
 
-Kept and rejected counts for all 25 clusters, extraction accuracy, and theme stability
-will be added here once the evaluation step (milestone 7) has run.
+Across all 25 clusters the skeptic **kept 15 and rejected 10**. The checks that
+failed:
+
+| Check | Briefs failing it |
+|---|---|
+| Seasonality (a single peak, or falling for two months) | 8 |
+| Thin evidence | 3 |
+| Templating (30% or more of recent narratives) | 2 |
+| Size (lift) | 0 |
+| Concentration (one state or one company) | 0 |
+
+A brief can fail more than one check. Extraction accuracy and theme stability will be
+added here once the evaluation step (milestone 7) has run.
 
 ## Running it
 

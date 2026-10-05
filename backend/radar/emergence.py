@@ -31,11 +31,15 @@ def filter_as_of(df: pd.DataFrame, as_of: str | None) -> pd.DataFrame:
     return df[df["month"] <= as_of]
 
 
-def lift(company_count: int, cluster_total: int, company_share_overall: float) -> float:
-    """Company share of the cluster divided by its share of all complaints."""
-    if cluster_total == 0 or company_share_overall == 0:
+def lift(company_count: int, cluster_total: int, company_share_of_product: float) -> float:
+    """Company share of the cluster divided by its share of the cluster's product.
+
+    Peers are companies in the same product, so a payday lender is compared with other
+    payday lenders, not with a complaint pool that is mostly credit reporting.
+    """
+    if cluster_total == 0 or company_share_of_product == 0:
         return 0.0
-    return (company_count / cluster_total) / company_share_overall
+    return (company_count / cluster_total) / company_share_of_product
 
 
 def split_window(months: list[str], month: str) -> tuple[list[str], list[str]]:
@@ -80,7 +84,10 @@ def compute(
     )
 
     recent_rows = data[data["month"].isin(recent)]
-    overall_share = recent_rows["company"].value_counts(normalize=True)
+    product_share = {
+        str(product): rows["company"].value_counts(normalize=True)
+        for product, rows in recent_rows.groupby("product")
+    }
     by_cluster = dict(list(recent_rows.groupby(["product", "issue"])))
 
     clusters = [
@@ -93,7 +100,7 @@ def compute(
             recent_value=float(recent_avg[key]),
             baseline_value=float(baseline_avg[key]),
             baseline_len=len(baseline),
-            overall_share=overall_share,
+            product_share=product_share[key[0]],
         )
         for i, key in enumerate(ranked)
     ]
@@ -118,7 +125,7 @@ def _cluster_stats(
     recent_value: float,
     baseline_value: float,
     baseline_len: int,
-    overall_share: pd.Series,
+    product_share: pd.Series,
 ) -> ClusterStats:
     product, issue = key
     company_counts = rows["company"].value_counts().head(TOP_COMPANIES)
@@ -140,7 +147,7 @@ def _cluster_stats(
             TopCompany(
                 name=str(name),
                 count=int(count),
-                lift=round(lift(int(count), len(rows), float(overall_share[name])), 3),
+                lift=round(lift(int(count), len(rows), float(product_share[name])), 3),
             )
             for name, count in company_counts.items()
         ],

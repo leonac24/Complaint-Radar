@@ -13,7 +13,7 @@ MAX_TOKENS = 8000
 SYSTEM = """You are a risk analyst writing for a bank executive. You receive an evidence
 package about one cluster of consumer complaints sent to the CFPB: complaint volume
 over time, how fast it is accelerating, which companies are over-represented relative
-to their size (lift above 1), how many narratives look templated, and themes and
+to their size within the same product (lift above 1), how many narratives look templated, and themes and
 summaries written by an earlier AI step over a sample of narratives.
 
 Rules:

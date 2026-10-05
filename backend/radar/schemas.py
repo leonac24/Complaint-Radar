@@ -108,15 +108,17 @@ class Brief(BaseModel):
     confidence: float = Field(ge=0, le=1)
 
 
+# Field order matters: structured output is generated in this order, so the reason
+# comes before the result and the checks come before the verdict.
 class SkepticCheck(BaseModel):
     name: CheckName
-    result: Literal["pass", "fail"]
     reason: str
+    result: Literal["pass", "fail"]
 
 
 class SkepticReview(BaseModel):
-    verdict: Verdict
     checks: list[SkepticCheck]
+    verdict: Verdict
     note: str
 
 

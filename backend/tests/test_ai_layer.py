@@ -144,6 +144,15 @@ def test_skeptic_rejects_missing_checks(result) -> None:
         skeptic.review_brief(FakeLLM(responder=lambda c: partial), "m", brief, _package(result))
 
 
+def test_skeptic_verdict_follows_checks(result) -> None:
+    failed = [{**REVIEW["checks"][0], "result": "fail"}, *REVIEW["checks"][1:]]
+    contradictory = {**REVIEW, "checks": failed, "verdict": "kept"}
+    brief = Brief.model_validate(analyst.write_brief(FakeLLM(), "m", _package(result)))
+    review = skeptic.review_brief(FakeLLM(responder=lambda c: contradictory), "m", brief,
+                                  _package(result))
+    assert review.verdict == "rejected"
+
+
 # ---------- Claude client request shapes ----------
 
 

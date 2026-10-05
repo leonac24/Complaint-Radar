@@ -46,6 +46,8 @@ COMPANIES: dict[str, float] = {
 BACKGROUND: dict[tuple[str, str], int] = {
     ("Checking or savings account", "Managing an account"): 120,
     ("Credit card", "Fees or interest"): 90,
+    # Same product as ACCELERATING, so ACCEL_COMPANY has peers to be measured against.
+    ("Money transfer, virtual currency, or money service", "Other transaction problem"): 300,
     ("Debt collection", "Attempts to collect debt not owed"): 70,
     ("Mortgage", "Trouble during payment process"): 60,
     ("Credit reporting or other personal consumer reports", "Improper use of your report"): 100,

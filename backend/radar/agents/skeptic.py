@@ -18,20 +18,33 @@ weak signals. You see the brief and the exact evidence package the analyst used.
 Complaints are unverified allegations; you are judging whether the signal is real and
 well supported, not whether any company did anything wrong.
 
-Run all five checks and give each a result of pass or fail with a one-sentence reason
-that cites numbers from the evidence:
-1. size: is the signal explained by a company's overall volume? Check lift: a top
-   company with lift near 1 is just big, not over-represented.
-2. templating: is a high templated share of narratives driving the spike?
+Run all five checks. For each, write a one-sentence reason that cites numbers from the
+evidence first, then a result of pass or fail that agrees with that reason:
+1. size: is the signal explained by company size? Lift compares a company's share of
+   this cluster with its share of the same product, so lift near 1 means a company is
+   just big within its market. Fail only if the brief attributes the signal to a
+   specific company whose lift does not support it. A rise spread across companies
+   with lift near 1 is a market-wide signal, not a size artifact, and passes.
+2. templating: fail if 30% or more of recent narratives are templated, since
+   copy-paste or form-letter submissions can manufacture a spike.
 3. concentration: is it one state or one company only?
-4. thin_evidence: are there too few narratives or AI-sampled complaints to support
-   the root cause the brief names?
-5. seasonality: does the monthly series look like a single blip or a known one-off
-   rather than sustained acceleration?
+4. thin_evidence: is the AI sample too small or too off-topic to support the root
+   cause the brief names? The sample is capped at about 40 complaints per cluster by
+   design, so never fail because the sample is small next to total complaint volume.
+   Fail if fewer than about 15 complaints were sampled, if fewer than 10 narratives
+   exist in the recent months, or if the themes behind the named root cause cover only
+   a small part of the sample.
+5. seasonality: read the monthly counts, not just the averages. Fail if the recent
+   average rests on one peak month, or if the series has fallen for the last two
+   months and the latest month is well below the recent peak. A rise that holds or
+   keeps climbing passes.
+
+Judge each check on its own. Lenient guidance on one check is not a reason to pass
+another, and a brief must survive all five to be kept.
 
 Return exactly one entry per check, using these names: size, templating,
-concentration, thin_evidence, seasonality. Set verdict to "rejected" if any check fails
-in a way that undermines the brief's main claim; otherwise "kept". `note` is one plain
+concentration, thin_evidence, seasonality. Set verdict to "rejected" if any check
+fails; otherwise "kept". `note` is one plain
 sentence for the UI explaining the verdict."""
 
 
@@ -46,7 +59,8 @@ def validate_checks(review: SkepticReview) -> SkepticReview:
     names = sorted(c.name for c in review.checks)
     if names != sorted(REQUIRED_CHECKS):
         raise LLMError(f"skeptic returned checks {names}, expected {sorted(REQUIRED_CHECKS)}")
-    return review
+    verdict = "rejected" if any(c.result == "fail" for c in review.checks) else "kept"
+    return review.model_copy(update={"verdict": verdict})
 
 
 def review_brief(llm: LLM, model: str, brief: Brief, evidence: dict[str, Any]) -> SkepticReview:

@@ -111,7 +111,7 @@ progress readout. Skip files already present.
 - Keep clusters with recent monthly average >= 30. Rank by velocity.
 - Per cluster, store monthly counts for the full window, top states, narrative count,
   and top companies with **lift** = (company share of cluster) / (company share of
-  all complaints). Lift > 1 means overrepresented relative to size.
+  the cluster's product). Lift > 1 means overrepresented relative to size among peers.
 - Accept an `--as-of YYYY-MM` flag so the same code powers backtesting. With `--as-of`,
   ignore all data after that month.
 
@@ -369,6 +369,14 @@ Verify each milestone, then summarize what was done and anything the user must d
 
 - Lift uses company shares within the cluster's recent 3-month window (same period
   for numerator and denominator), not the whole archive.
+- Lift's denominator is the company's share of the same product, not of all
+  complaints. With 90% of complaints in credit reporting, the all-complaints version
+  gave any non-bureau company a lift in the thousands (Dave: 6,231 vs 26 by product).
+- The skeptic's size check fails only when the brief pins the signal on a company
+  whose lift does not support it; thin_evidence judges the ~40-complaint sample on its
+  own terms, never against total volume. The first prompt rejected every brief.
+- To fit a $25 budget, `.env` sets `RADAR_MODEL_REASONING=claude-sonnet-5-5`, so
+  themes and skeptic run on Sonnet 5.5 instead of Opus 5.5 (full run about $3-4).
 - `ingest` keeps the `EXPORTS` dict (keyed by covered months) and `COLUMNS`/`snake()`
   matching from `data_spike/spike.py`; `--exports` accepts `recent`, `all`, or
   comma-separated keys. Dedupe prefers the copy of a complaint that has a narrative.

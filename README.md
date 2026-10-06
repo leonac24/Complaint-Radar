@@ -18,6 +18,12 @@ on it, and the same pipeline could run on a bank's own complaint data.
 Complaints are **unverified allegations**. Everything here treats them as claims or
 signals, never as findings of wrongdoing.
 
+![Radar scope with the top cluster selected](docs/screenshots/radar.jpg)
+
+| The skeptic at work | Bank lens: lift and velocity against peers |
+|---|---|
+| ![Skeptic checks on the payday cluster](docs/screenshots/skeptic.jpg) | ![Bank lens for Dave Operating](docs/screenshots/lens.jpg) |
+
 ## Project status
 
 | Milestone | Status |
@@ -29,7 +35,7 @@ signals, never as findings of wrongdoing.
 | 5. Frontend radar | Done |
 | 6. Bank lens, backtests, method page | Done; backtests need real cases (see below) |
 | 7. Evaluation | Done; extraction ratings pending a human reviewer |
-| 8. Polish, screenshots, demo recording | Not started |
+| 8. Polish, screenshots, demo recording | Screenshots and demo script done; recording and deploy pending |
 
 ## How it works
 
@@ -211,15 +217,30 @@ public_data/       precomputed JSON for the deployed demo
 - **Label drift.** The CFPB uses near-duplicate issue labels, which can split one
   cluster in two.
 
-## Demo script (planned)
+## Demo script (3 minutes)
 
-1. Open on the radar sweeping in early 2026. Blips appear across sectors.
-2. Drag the month slider forward; one cluster moves toward the rim. Click it.
-3. Walk through the themes, then the skeptic's checks.
-4. Show a rejected brief and why the skeptic rejected it.
-5. Switch to a bank lens to show size-normalized lift.
-6. Show a backtest result, whatever it was.
-7. Reach August 2026 as the scope dims. Close on the method page and evaluation.
+1. **Open the radar** (August 2026). The sweep turns; distance from the center is
+   velocity, size is volume, color is severity. Hollow rings are briefs the skeptic
+   rejected.
+2. **Press Play.** The slider runs from December 2025. Earlier months show statistics
+   only; watch the payday "can't stop withdrawals" cluster appear in June and move
+   toward the rim. At August the scope dims: public narrative publication ended that
+   month. Continue to the radar.
+3. **Click the outermost hollow ring** (rank 1 of 79, 1.77x). Walk through the themes:
+   the AI splits one CFPB category into ACH revocations refused, debits after payoff,
+   membership fees, and more.
+4. **Scroll to the skeptic's checks.** Size, templating, concentration, and evidence
+   pass; seasonality fails because complaints fell for two months after a June peak.
+   The fastest-rising cluster is rejected, and the reason is on screen.
+5. **Open a kept brief**: the credit bureau dispute-investigation cluster, a broad
+   market-wide rise with lift near 1 for each bureau.
+6. **Back on the payday brief, select Dave Operating** under top companies. The bank
+   lens shows lift 26 against peers, and its own complaints rising 2.4x against 1.3x
+   for everyone else in the cluster.
+7. **Backtests page.** State plainly what it shows: no verified cases have been run
+   yet, and the payday cluster sat below the volume floor until June.
+8. **Close on the Method page**: the pipeline and model ids, 15 kept and 10 rejected,
+   90% theme stability across reruns, and the limitations.
 
 ## Data source
 

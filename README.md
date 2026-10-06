@@ -170,14 +170,13 @@ make api                      # serve public_data/ at http://localhost:8000/api
 make web                      # radar UI at http://localhost:3000 (reads public_data/)
 ```
 
-Deploy (static files only; no API key is involved). From `frontend/`, after
-`vercel link`:
+Deploy (static files only; no API key is involved). The Vercel project is connected to
+this repo, so every push to `main` deploys; `vercel.json` builds `frontend/` and serves
+its static export. To deploy without pushing, from `frontend/`:
 
 ```bash
 vercel build --prod && vercel deploy --prebuilt --prod
 ```
-
-The build runs locally because it copies `public_data/` from outside `frontend/`.
 
 Synthetic data, for development without a download:
 

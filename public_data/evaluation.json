@@ -1,0 +1,34 @@
+{
+ "generated_at": "2026-10-06T00:18:51+00:00",
+ "extraction": null,
+ "extraction_status": "not rated yet: fill the rating column in data/work/review_sheet.csv",
+ "skeptic": {
+  "kept": 15,
+  "rejected": 10,
+  "failed_checks": {
+   "seasonality": 8,
+   "thin_evidence": 3,
+   "templating": 2
+  }
+ },
+ "stability": {
+  "cluster": "Payday loan, title loan, personal loan, or advance loan / Can't stop withdrawals from your bank account",
+  "model": "claude-sonnet-5-5",
+  "first_labels": [
+   "Refusal to honor ACH authorization revocation",
+   "Withdrawals continuing after payoff or closure",
+   "Unexplained or unauthorized withdrawals and overdraft harm",
+   "Subscription, membership and enrollment fee disputes",
+   "Retained bank access and data security concerns"
+  ],
+  "second_labels": [
+   "Refusal to honor ACH authorization revocation",
+   "Withdrawals continuing after payoff or account closure",
+   "Subscription and membership fees withdrawn without consent",
+   "Unexplained or unauthorized one-off withdrawals",
+   "Stop payment orders and chargebacks not respected"
+  ],
+  "label_overlap": 0.497,
+  "pair_agreement": 0.899
+ }
+}

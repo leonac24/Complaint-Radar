@@ -225,3 +225,24 @@
 .miss {
   color: var(--fail);
 }
+
+.label {
+  font-size: 12.5px;
+  color: var(--ink-2);
+  font-weight: 500;
+  margin-top: 6px;
+}
+
+.runs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.runList {
+  margin: 4px 0 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

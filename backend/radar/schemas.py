@@ -309,3 +309,39 @@ class BacktestResult(BacktestCase):
 
 class BacktestsFile(BaseModel):
     results: list[BacktestResult]
+
+
+# ---------- evaluation ----------
+
+
+class ExtractionScore(BaseModel):
+    total: int
+    rated: int
+    accurate: int
+    partially: int
+    wrong: int
+    accuracy: float | None
+    accurate_or_partial: float | None
+
+
+class SkepticStats(BaseModel):
+    kept: int
+    rejected: int
+    failed_checks: dict[str, int]
+
+
+class StabilityResult(BaseModel):
+    cluster: str
+    model: str
+    first_labels: list[str]
+    second_labels: list[str]
+    label_overlap: float  # mean best word-overlap of labels across the two runs, 0 to 1
+    pair_agreement: float  # share of complaint pairs grouped the same way in both runs
+
+
+class Evaluation(BaseModel):
+    generated_at: str
+    extraction: ExtractionScore | None
+    extraction_status: str
+    skeptic: SkepticStats | None
+    stability: StabilityResult | None

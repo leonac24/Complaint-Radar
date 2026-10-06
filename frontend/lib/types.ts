@@ -202,3 +202,30 @@ export interface BacktestResult {
 export interface BacktestsFile {
   results: BacktestResult[];
 }
+
+export interface ExtractionScore {
+  total: number;
+  rated: number;
+  accurate: number;
+  partially: number;
+  wrong: number;
+  accuracy: number | null;
+  accurate_or_partial: number | null;
+}
+
+export interface StabilityResult {
+  cluster: string;
+  model: string;
+  first_labels: string[];
+  second_labels: string[];
+  label_overlap: number;
+  pair_agreement: number;
+}
+
+export interface Evaluation {
+  generated_at: string;
+  extraction: ExtractionScore | null;
+  extraction_status: string;
+  skeptic: { kept: number; rejected: number; failed_checks: Record<string, number> } | null;
+  stability: StabilityResult | null;
+}

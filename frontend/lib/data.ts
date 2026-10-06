@@ -2,7 +2,7 @@
 // otherwise it reads the static copy of public_data/ served at /data/.
 
 import { useEffect, useState } from "react";
-import type { BacktestsFile, ClusterDetail, CompaniesFile, LensFile, Meta, RadarFile } from "./types";
+import type { BacktestsFile, ClusterDetail, CompaniesFile, Evaluation, LensFile, Meta, RadarFile } from "./types";
 
 const API = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "");
 
@@ -31,7 +31,7 @@ export const fetchCluster = (id: string) => getJson<ClusterDetail>(paths.cluster
 export const fetchCompanies = () => getJson<CompaniesFile>(paths.companies());
 export const fetchLens = (slug: string) => getJson<LensFile>(paths.lens(slug));
 export const fetchBacktests = () => getJson<BacktestsFile>(paths.backtests());
-export const fetchEvaluation = () => getJson<unknown>(paths.evaluation());
+export const fetchEvaluation = () => getJson<Evaluation>(paths.evaluation());
 
 export type Loadable<T> =
   | { state: "loading" }

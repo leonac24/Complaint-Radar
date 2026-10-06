@@ -28,7 +28,7 @@ signals, never as findings of wrongdoing.
 | 4. Export and API | Done |
 | 5. Frontend radar | Done |
 | 6. Bank lens, backtests, method page | Done; backtests need real cases (see below) |
-| 7. Evaluation | Not started |
+| 7. Evaluation | Done; extraction ratings pending a human reviewer |
 | 8. Polish, screenshots, demo recording | Not started |
 
 ## How it works
@@ -105,8 +105,24 @@ failed:
 | Size (lift) | 0 |
 | Concentration (one state or one company) | 0 |
 
-A brief can fail more than one check. Extraction accuracy and theme stability will be
-added here once the evaluation step (milestone 7) has run.
+A brief can fail more than one check.
+
+**Theme stability.** Themes were generated twice for the payday "can't stop
+withdrawals" cluster. Four of five themes matched in substance, and **90% of
+complaint pairs were grouped the same way** in both runs. Word-for-word label overlap
+is 0.50, because the runs phrase the same theme differently ("after payoff or closure"
+vs. "after payoff or account closure"). The fifth theme differed: one run split out
+data-security concerns, the other stop-payment orders.
+
+**Extraction accuracy.** Not rated yet. `python -m radar.cli evaluate` wrote 50 random
+extractions next to their narratives in `data/work/review_sheet.csv`; a person rates
+each one accurate, partially, or wrong, and rerunning `evaluate` scores the sheet.
+
+**Backtests.** The replay machinery is built and tested, but no cases have been run:
+cases must be real, verified public events added to
+`backend/radar/backtest_cases.yaml`. One thing a replay already shows: the payday
+"can't stop withdrawals" cluster stayed below the 30-a-month volume floor until June
+2026, so the radar could not have seen it in March to May.
 
 ## Running it
 
@@ -137,6 +153,17 @@ make data-fixtures
 ```
 
 Each step can also be run on its own: `cd backend && uv run python -m radar.cli <step>`.
+
+Evaluation and backtests:
+
+```bash
+cd backend
+uv run python -m radar.cli evaluate               # writes the review sheet, scores it once rated
+uv run python -m radar.cli evaluate --stability   # also reruns themes twice (2 AI calls)
+uv run python -m radar.cli backtest --dry-run     # cases from radar/backtest_cases.yaml
+uv run python -m radar.cli backtest --as-of 2026-06 --cluster "<product> / <issue>"
+make export                                        # publishes results to public_data/
+```
 
 ### Cost
 

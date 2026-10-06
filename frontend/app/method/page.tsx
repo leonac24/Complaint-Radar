@@ -2,8 +2,8 @@
 
 import { Header } from "@/components/Header";
 import { fetchCluster, fetchEvaluation, fetchMeta, fetchRadar, useLoad } from "@/lib/data";
-import { CHECK_LABEL, CHECK_ORDER, monthLong } from "@/lib/format";
-import type { ClusterDetail, Meta } from "@/lib/types";
+import { CHECK_LABEL, CHECK_ORDER, monthLong, percent } from "@/lib/format";
+import type { ClusterDetail, Evaluation, Meta } from "@/lib/types";
 import styles from "../pages.module.css";
 
 interface SkepticTotals {
@@ -116,7 +116,7 @@ export default function Method() {
           <section className={styles.block}>
             <h2 className={styles.h2}>Extraction accuracy and theme stability</h2>
             {evaluation.state === "ready" ? (
-              <pre className={styles.pre}>{JSON.stringify(evaluation.data, null, 2)}</pre>
+              <EvaluationResults evaluation={evaluation.data} />
             ) : (
               <div className={styles.empty}>
                 Evaluation hasn&apos;t run yet. Run <code>python -m radar.cli evaluate</code>, then <code>make export</code>.
@@ -134,6 +134,47 @@ export default function Method() {
           </div>
         </section>
       </main>
+    </>
+  );
+}
+
+function EvaluationResults({ evaluation }: { evaluation: Evaluation }) {
+  const { extraction, stability } = evaluation;
+  return (
+    <>
+      <div className={styles.label}>Extraction accuracy (human review of 50 random extractions)</div>
+      {extraction && extraction.accuracy !== null ? (
+        <div className={styles.bigNumbers}>
+          <div><div className={styles.big}>{percent(extraction.accuracy)}</div><div className={styles.muted}>accurate</div></div>
+          <div>
+            <div className={styles.big}>{percent(extraction.accurate_or_partial ?? 0)}</div>
+            <div className={styles.muted}>accurate or partially</div>
+          </div>
+          <div><div className={styles.big}>{extraction.wrong}</div><div className={styles.muted}>wrong of {extraction.rated} rated</div></div>
+        </div>
+      ) : (
+        <div className={styles.empty}>Not rated yet. A person rates the review sheet; the result appears here.</div>
+      )}
+      <div className={styles.label}>Theme stability (themes run twice on one cluster)</div>
+      {stability ? (
+        <>
+          <div className={styles.bigNumbers}>
+            <div><div className={styles.big}>{percent(stability.pair_agreement)}</div><div className={styles.muted}>complaint pairs grouped the same way</div></div>
+            <div><div className={styles.big}>{stability.label_overlap.toFixed(2)}</div><div className={styles.muted}>label word overlap</div></div>
+          </div>
+          <div className={styles.muted}>{stability.cluster}</div>
+          <div className={styles.runs}>
+            {[stability.first_labels, stability.second_labels].map((labels, i) => (
+              <div key={i}>
+                <div className={styles.label}>Run {i + 1}</div>
+                <ul className={styles.runList}>{labels.map((l) => <li key={l}>{l}</li>)}</ul>
+              </div>
+            ))}
+          </div>
+        </>
+      ) : (
+        <div className={styles.empty}>Not run yet. Run <code>python -m radar.cli evaluate --stability</code>.</div>
+      )}
     </>
   );
 }

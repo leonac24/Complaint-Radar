@@ -9,11 +9,12 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from datetime import UTC, datetime
 from pathlib import Path
 
 import pandas as pd
 
-from radar import backtest, emergence, export, extract, ingest, templating, themes
+from radar import backtest, emergence, evaluate, export, extract, ingest, templating, themes
 from radar.agents import analyst, evidence, skeptic
 from radar.config import Settings, get_settings
 from radar.llm import LLM, ClaudeLLM, LLMError
@@ -22,8 +23,10 @@ from radar.schemas import (
     BacktestsFile,
     Brief,
     EmergenceResult,
+    Evaluation,
     ModelIds,
     SkepticReview,
+    StabilityResult,
     ThemeOut,
 )
 
@@ -333,6 +336,63 @@ def cmd_backtest(args: argparse.Namespace, settings: Settings) -> None:
     print(f"backtest: {flagged} of {len(saved)} cases flagged -> {out}")
 
 
+def _stability_run(settings: Settings) -> StabilityResult | None:
+    """Theme the best-sampled cluster twice. Two reasoning-model calls."""
+    inputs = list(_cluster_inputs(settings, None, 25))
+    if not inputs:
+        return None
+    cluster, items = max(inputs, key=lambda pair: len(pair[1]))
+    llm, model = make_llm(), settings.model_reasoning
+    runs = [themes.consolidate(llm, model, cluster, list(items.items())) for _ in range(2)]
+    first, second = runs
+    if first is None or second is None:
+        return None
+    return evaluate.stability(f"{cluster.product} / {cluster.issue}", model, first, second)
+
+
+def cmd_evaluate(args: argparse.Namespace, settings: Settings) -> None:
+    work = settings.work_dir
+    out = work / "evaluation.json"
+    previous = Evaluation.model_validate_json(out.read_text()) if out.exists() else None
+
+    sheet = work / "review_sheet.csv"
+    if not sheet.exists():
+        rows = evaluate.review_rows(load_complaints(settings),
+                                    extract.load_cache(extraction_cache_path(settings)))
+        evaluate.write_sheet(sheet, rows)
+        print(f"  wrote {len(rows)} rows to {sheet}; fill the rating column "
+              f"({', '.join(evaluate.RATINGS)}) and rerun evaluate")
+    score = evaluate.score_sheet(sheet)
+    status = (
+        f"not rated yet: fill the rating column in {sheet.relative_to(settings.data_dir.parent)}"
+        if score.rated == 0 else f"{score.rated} of {score.total} rated"
+    )
+
+    reviews = [SkepticReview.model_validate(r) for r in read_json(work / "skeptic.json", {}).values()]
+    stats = evaluate.skeptic_stats(reviews) if reviews else None
+
+    stable = previous.stability if previous else None
+    if args.stability and confirm_spend(2, args.yes):
+        try:
+            stable = _stability_run(settings) or stable
+        except LLMError as exc:
+            print(f"  stability: {exc}")
+
+    result = Evaluation(
+        generated_at=datetime.now(UTC).isoformat(timespec="seconds"),
+        extraction=score if score.rated else None,
+        extraction_status=status,
+        skeptic=stats,
+        stability=stable,
+    )
+    out.write_text(result.model_dump_json(indent=1))
+    accuracy = f"{score.accuracy:.0%} accurate" if score.accuracy is not None else "unrated"
+    overlap = f"label overlap {stable.label_overlap:.2f}, pair agreement {stable.pair_agreement:.2f}" if stable else "no stability run (use --stability)"
+    print(f"evaluate: extraction {accuracy} ({status}); "
+          f"skeptic {stats.kept if stats else 0} kept / {stats.rejected if stats else 0} rejected; "
+          f"{overlap} -> {out}")
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="radar", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -379,6 +439,11 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--dry-run", action="store_true", help="print the plan, make no calls")
     p.add_argument("--yes", action="store_true", help="skip the spend confirmation")
     p.set_defaults(func=cmd_backtest)
+
+    p = sub.add_parser("evaluate", help="review sheet, skeptic stats, theme stability")
+    p.add_argument("--stability", action="store_true", help="rerun themes twice on one cluster (2 calls)")
+    p.add_argument("--yes", action="store_true", help="skip the spend confirmation")
+    p.set_defaults(func=cmd_evaluate)
 
     p = sub.add_parser("export", help="write static JSON for the frontend to public_data/")
     p.set_defaults(func=cmd_export)

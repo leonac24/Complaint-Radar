@@ -15,3 +15,4 @@ frontend/public/data/
 frontend/.next/
 frontend/out/
 frontend/tsconfig.tsbuildinfo
+frontend/.vercel/

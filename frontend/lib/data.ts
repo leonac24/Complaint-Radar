@@ -2,7 +2,7 @@
 // otherwise it reads the static copy of public_data/ served at /data/.
 
 import { useEffect, useState } from "react";
-import type { ClusterDetail, Meta, RadarFile } from "./types";
+import type { BacktestsFile, ClusterDetail, CompaniesFile, LensFile, Meta, RadarFile } from "./types";
 
 const API = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "");
 
@@ -10,6 +10,8 @@ const paths = {
   meta: () => (API ? `${API}/api/meta` : "/data/meta.json"),
   radar: (month: string) => (API ? `${API}/api/radar?month=${month}` : `/data/radar_${month}.json`),
   cluster: (id: string) => (API ? `${API}/api/clusters/${id}` : `/data/cluster_${id}.json`),
+  companies: () => (API ? `${API}/api/companies` : "/data/companies.json"),
+  lens: (slug: string) => (API ? `${API}/api/companies/${slug}` : `/data/lens_${slug}.json`),
   backtests: () => (API ? `${API}/api/backtests` : "/data/backtests.json"),
   evaluation: () => (API ? `${API}/api/evaluation` : "/data/evaluation.json"),
 };
@@ -26,7 +28,9 @@ async function getJson<T>(url: string): Promise<T> {
 export const fetchMeta = () => getJson<Meta>(paths.meta());
 export const fetchRadar = (month: string) => getJson<RadarFile>(paths.radar(month));
 export const fetchCluster = (id: string) => getJson<ClusterDetail>(paths.cluster(id));
-export const fetchBacktests = () => getJson<unknown>(paths.backtests());
+export const fetchCompanies = () => getJson<CompaniesFile>(paths.companies());
+export const fetchLens = (slug: string) => getJson<LensFile>(paths.lens(slug));
+export const fetchBacktests = () => getJson<BacktestsFile>(paths.backtests());
 export const fetchEvaluation = () => getJson<unknown>(paths.evaluation());
 
 export type Loadable<T> =

@@ -84,7 +84,7 @@ export function Scope({ file, allFiles, selectedId, onSelect, reduced, dimmed, l
   const [hover, setHover] = useState<string | null>(null);
   const [focus, setFocus] = useState<string | null>(null);
 
-  const angles = useMemo(() => clusterAngles(allFiles), [allFiles]);
+  const angles = useMemo(() => clusterAngles(allFiles.map((f) => f.clusters)), [allFiles]);
   // DOM order is velocity order, so Tab walks from the fastest cluster down.
   const blips = useMemo(
     () =>

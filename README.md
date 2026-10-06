@@ -27,7 +27,7 @@ signals, never as findings of wrongdoing.
 | 3. AI layer: extract, themes, analyst, skeptic | Done, run on real data |
 | 4. Export and API | Done |
 | 5. Frontend radar | Done |
-| 6. Bank lens, backtests, method page | Partly: method page done, lens built from top companies, backtests not run |
+| 6. Bank lens, backtests, method page | Done; backtests need real cases (see below) |
 | 7. Evaluation | Not started |
 | 8. Polish, screenshots, demo recording | Not started |
 

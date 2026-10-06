@@ -3,8 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { Loadable } from "@/lib/data";
 import { capitalize, CHECK_LABEL, CHECK_ORDER, count, FAMILY_LABEL, liftReading, liftText, monthLong, percent } from "@/lib/format";
-import type { LensRow } from "@/lib/lens";
-import type { ClusterDetail, MonthCount, RadarCluster, SkepticCheck } from "@/lib/types";
+import type { ClusterDetail, LensCluster, MonthCount, RadarCluster, SkepticCheck } from "@/lib/types";
 import { Sparkline } from "./Sparkline";
 import { StateMap } from "./StateMap";
 import styles from "./BriefPanel.module.css";
@@ -27,7 +26,9 @@ interface Props {
   briefCount: number;
   keptCount: number;
   selection: Selection | null;
-  lens: { company: string; rows: LensRow[]; onClear: () => void } | null;
+  lens: { company: string; rows: LensCluster[]; loading: boolean; onClear: () => void } | null;
+  /** Company names that have a precomputed lens. */
+  lensable: Set<string>;
   reduced: boolean;
   onSelect: (id: string) => void;
   onLens: (company: string) => void;
@@ -64,7 +65,7 @@ export function BriefPanel(props: Props) {
   );
 }
 
-function LensSection({ company, rows, onClear, onSelect }: NonNullable<Props["lens"]> & { onSelect: (id: string) => void }) {
+function LensSection({ company, rows, loading, onClear, onSelect }: NonNullable<Props["lens"]> & { onSelect: (id: string) => void }) {
   return (
     <section className={styles.stack}>
       <div className={styles.label}>Bank lens</div>
@@ -74,16 +75,21 @@ function LensSection({ company, rows, onClear, onSelect }: NonNullable<Props["le
       </div>
       <p className={styles.muted}>
         Lift is the company&apos;s share of a cluster divided by its share of that product. Above 1 means
-        it is overrepresented among peers, not just large. Listed where the company is among a
-        cluster&apos;s top 10 companies.
+        it is overrepresented among peers, not just large. Velocity compares the company&apos;s own
+        recent complaints with its baseline, next to everyone else in the cluster. Clusters where it
+        has at least 10 complaints in the recent three months.
       </p>
       <div>
-        {rows.length === 0 && <p className={styles.muted}>Not among the top companies of any cluster this month.</p>}
+        {loading && <p className={styles.muted}>Loading…</p>}
+        {!loading && rows.length === 0 && <p className={styles.muted}>No cluster this month has 10 or more of its complaints.</p>}
         {rows.map((row) => (
-          <button key={row.clusterId} type="button" className={styles.lensRow} onClick={() => onSelect(row.clusterId)}>
+          <button key={row.id} type="button" className={styles.lensRow} onClick={() => onSelect(row.id)}>
             <span className={styles.strong}>{row.issue}</span>
             <span className={styles.liftValue}>lift {liftText(row.lift)}</span>
-            <span className={styles.small}>{row.product} · {count(row.count)} complaints</span>
+            <span className={styles.small}>
+              {row.product} · {count(row.complaints)} complaints · velocity {row.company_velocity.toFixed(2)}×
+              vs. peers {row.peer_velocity.toFixed(2)}×
+            </span>
             <span className={styles.tag}>{liftReading(row.lift)}</span>
           </button>
         ))}
@@ -253,20 +259,27 @@ function SelectedCluster(props: Props & { selection: Selection }) {
         <section className={styles.stack}>
           <div className={styles.sectionTitle}>Top companies by lift</div>
           <div className={styles.small}>
-            Lift = share of this cluster ÷ share of the product. Raw counts shown for context only. Select a
-            company to open it in the bank lens.
+            Lift = share of this cluster ÷ share of the product. Raw counts shown for context only. Companies
+            with a bank lens open it when selected.
           </div>
-          {companies.map((c) => (
-            <button key={c.name} type="button" className={styles.company} onClick={() => props.onLens(c.name)}
-              title="Open in bank lens">
-              <span className={styles.strong}>
-                {c.name}
-                <span className={styles.companyCount}>{count(c.count)} complaints</span>
-              </span>
-              <span className={styles.liftBig}>{liftText(c.lift)}×</span>
-              <span className={styles.tag}>{liftReading(c.lift)}</span>
-            </button>
-          ))}
+          {companies.map((c) => {
+            const inner = (
+              <>
+                <span className={styles.strong}>
+                  {c.name}
+                  <span className={styles.companyCount}>{count(c.count)} complaints</span>
+                </span>
+                <span className={styles.liftBig}>{liftText(c.lift)}×</span>
+                <span className={styles.tag}>{liftReading(c.lift)}</span>
+              </>
+            );
+            return props.lensable.has(c.name) ? (
+              <button key={c.name} type="button" className={styles.company} onClick={() => props.onLens(c.name)}
+                title="Open in bank lens">{inner}</button>
+            ) : (
+              <div key={c.name} className={styles.company} style={{ cursor: "default" }}>{inner}</div>
+            );
+          })}
         </section>
       )}
 

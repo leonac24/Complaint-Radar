@@ -241,3 +241,71 @@ class Meta(BaseModel):
     models: ModelIds
     # Optional files that exist in this export, e.g. "backtests", "evaluation".
     available: list[str]
+
+
+# ---------- bank lens ----------
+
+
+class CompanyListItem(BaseModel):
+    name: str
+    slug: str
+    complaints: int  # recent-window complaints in the analysis month
+    reason: str  # why the company is in the picker
+
+
+class CompaniesFile(BaseModel):
+    month: str
+    companies: list[CompanyListItem]
+
+
+class LensCluster(BaseModel):
+    id: str
+    product: str
+    issue: str
+    product_family: str
+    complaints: int  # the company's complaints in the cluster's recent window
+    lift: float
+    company_velocity: float
+    peer_velocity: float
+
+
+class LensFile(BaseModel):
+    company: str
+    slug: str
+    months: dict[str, list[LensCluster]]
+
+
+# ---------- backtests ----------
+
+
+class BacktestCase(BaseModel):
+    name: str
+    public_date: str
+    as_of: str
+    cluster: str  # "<product> / <issue>", exactly as the CFPB labels it
+    source_url: str
+
+
+class MiniBlip(BaseModel):
+    id: str
+    product_family: str
+    velocity: float
+    recent_monthly_avg: float
+
+
+class BacktestResult(BacktestCase):
+    found: bool
+    rank: int | None
+    clusters_ranked: int
+    velocity: float | None
+    target_id: str | None
+    headline: str | None = None
+    verdict: Verdict | None = None
+    note: str | None = None
+    flagged: bool = False
+    outcome: str = ""
+    scope: list[MiniBlip]
+
+
+class BacktestsFile(BaseModel):
+    results: list[BacktestResult]

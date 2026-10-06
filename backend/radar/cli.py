@@ -13,11 +13,19 @@ from pathlib import Path
 
 import pandas as pd
 
-from radar import emergence, export, extract, ingest, templating, themes
+from radar import backtest, emergence, export, extract, ingest, templating, themes
 from radar.agents import analyst, evidence, skeptic
 from radar.config import Settings, get_settings
 from radar.llm import LLM, ClaudeLLM, LLMError
-from radar.schemas import Brief, EmergenceResult, ModelIds, SkepticReview, ThemeOut
+from radar.schemas import (
+    BacktestCase,
+    BacktestsFile,
+    Brief,
+    EmergenceResult,
+    ModelIds,
+    SkepticReview,
+    ThemeOut,
+)
 
 
 def step_dir(settings: Settings, as_of: str | None) -> Path:
@@ -270,6 +278,7 @@ def cmd_export(args: argparse.Namespace, settings: Settings) -> None:
     models = ModelIds(fast=settings.model_fast, writer=settings.model_writer,
                       reasoning=settings.model_reasoning)
     public = settings.public_dir
+    export.copy_optional(settings.work_dir, public)
     files = export.build(df, marked, analysis, shares, ai, models,
                          export.available_optional(public))
     size = export.write(public, files)
@@ -279,6 +288,49 @@ def cmd_export(args: argparse.Namespace, settings: Settings) -> None:
           f"briefs, {size / 1e6:.1f} MB -> {public}")
     if size > export.SIZE_LIMIT_BYTES:
         print(f"  warning: over the {export.SIZE_LIMIT_BYTES // 2**20} MB budget")
+
+
+def cmd_backtest(args: argparse.Namespace, settings: Settings) -> None:
+    if args.as_of and args.cluster:
+        cases = [BacktestCase(name=args.cluster, public_date="", as_of=args.as_of,
+                              cluster=args.cluster, source_url="")]
+    else:
+        cases = backtest.load_cases()
+    if not cases:
+        sys.exit(f"no cases: add some to {backtest.CASES_PATH} or pass --as-of and --cluster")
+    df = load_complaints(settings)
+    available = ingest.complete_months(df)
+    late = [c for c in cases if c.as_of not in available]
+    if late:
+        sys.exit(f"as_of {', '.join(c.as_of for c in late)} is outside the loaded data "
+                 f"({available[0]}..{available[-1]}). Run: python -m radar.cli ingest --exports all")
+    cache_path = extraction_cache_path(settings)
+    cache = extract.load_cache(cache_path)
+    calls = sum(backtest.planned_calls(c, df, cache) for c in cases)
+    print(f"backtest: {len(cases)} cases, about {calls} API calls")
+    if args.dry_run or not confirm_spend(calls, args.yes):
+        return
+    out = settings.work_dir / "backtests.json"
+    saved = {r.name: r for r in (BacktestsFile.model_validate_json(out.read_text()).results
+                                  if out.exists() else [])}
+    llm = make_llm()
+    models = (settings.model_fast, settings.model_writer, settings.model_reasoning)
+
+    def save_extractions(fresh: dict, model: str) -> None:
+        extract.append_cache(cache_path, fresh, model)
+        cache.update(fresh)
+
+    for case in cases:
+        try:
+            result = backtest.run_case(case, df, llm, models, cache, save_extractions)
+        except LLMError as exc:
+            print(f"  {case.name}: {exc}")
+            continue
+        saved[case.name] = result
+        out.write_text(BacktestsFile(results=list(saved.values())).model_dump_json(indent=1))
+        print(f"  {case.name}: {result.outcome}")
+    flagged = sum(r.flagged for r in saved.values())
+    print(f"backtest: {flagged} of {len(saved)} cases flagged -> {out}")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -320,6 +372,13 @@ def build_parser() -> argparse.ArgumentParser:
         p.add_argument("--clusters", type=int, default=25)
         p.add_argument("--force", action="store_true", help="redo clusters already done")
         p.set_defaults(func=func)
+
+    p = sub.add_parser("backtest", help="replay the radar as of earlier months for each case")
+    p.add_argument("--as-of", help="YYYY-MM for an ad hoc case (with --cluster)")
+    p.add_argument("--cluster", help='"<product> / <issue>" for an ad hoc case')
+    p.add_argument("--dry-run", action="store_true", help="print the plan, make no calls")
+    p.add_argument("--yes", action="store_true", help="skip the spend confirmation")
+    p.set_defaults(func=cmd_backtest)
 
     p = sub.add_parser("export", help="write static JSON for the frontend to public_data/")
     p.set_defaults(func=cmd_export)

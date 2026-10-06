@@ -179,3 +179,49 @@
     padding: 24px 16px 40px;
   }
 }
+
+.summaryLine {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.cases {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.case {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.caseName {
+  font-weight: 600;
+}
+
+.caseText {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.hit,
+.miss {
+  font-weight: 700;
+}
+
+.hit {
+  color: var(--pass);
+}
+
+.miss {
+  color: var(--fail);
+}

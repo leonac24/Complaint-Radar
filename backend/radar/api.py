@@ -69,12 +69,12 @@ def cluster(directory: PublicDir,
 
 @app.get("/api/companies")
 def companies(directory: PublicDir) -> Any:
-    return serve(directory, "companies.json", "lens")
+    return serve(directory, "companies.json", "export")
 
 
 @app.get("/api/companies/{slug}")
 def company(directory: PublicDir, slug: Annotated[str, Path(pattern=SLUG)]) -> Any:
-    return serve(directory, f"lens_{slug}.json", "lens")
+    return serve(directory, f"lens_{slug}.json", "export")
 
 
 @app.get("/api/backtests")

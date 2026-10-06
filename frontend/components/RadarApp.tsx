@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { fetchAllRadar, fetchCluster, fetchMeta, useLoad } from "@/lib/data";
+import { fetchAllRadar, fetchCluster, fetchCompanies, fetchLens, fetchMeta, useLoad } from "@/lib/data";
 import { monthLong, SEVERITY_COLORS } from "@/lib/format";
-import { ALL_COMPANIES, lensCompanies, lensRows } from "@/lib/lens";
+import { ALL_COMPANIES } from "@/lib/lens";
 import { rankOf } from "@/lib/scope";
 import type { Meta, RadarFile } from "@/lib/types";
 import { BriefPanel } from "./BriefPanel";
@@ -94,7 +94,7 @@ function Radar({ meta, files }: { meta: Meta; files: Record<string, RadarFile> }
   const [augDismissed, setAugDismissed] = useState(true);
   const [view, setView] = useState<"radar" | "table">("radar");
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [lens, setLens] = useState(ALL_COMPANIES);
+  const [lensSlug, setLensSlug] = useState(ALL_COMPANIES);
   const [playing, setPlaying] = useState(false);
   const playTimer = useRef<number | undefined>(undefined);
 
@@ -129,11 +129,19 @@ function Radar({ meta, files }: { meta: Meta; files: Record<string, RadarFile> }
 
   const detail = useLoad(selectedId ? `cluster:${selectedId}` : null, () => fetchCluster(selectedId ?? ""));
 
-  const companies = useMemo(() => lensCompanies(file), [file]);
-  const lensOn = lens !== ALL_COMPANIES;
-  const rows = useMemo(() => (lensOn ? lensRows(file, lens) : []), [file, lens, lensOn]);
-  const lensMap = useMemo(() => (lensOn ? new Map(rows.map((r) => [r.clusterId, r.lift])) : null), [rows, lensOn]);
-  const lensOptions = lensOn && !companies.includes(lens) ? [lens, ...companies] : companies;
+  const companiesFile = useLoad("companies", fetchCompanies);
+  const companies = companiesFile.state === "ready" ? companiesFile.data.companies : [];
+  const lensOn = lensSlug !== ALL_COMPANIES;
+  const lensFile = useLoad(lensOn ? `lens:${lensSlug}` : null, () => fetchLens(lensSlug));
+  const lensName = companies.find((c) => c.slug === lensSlug)?.name ?? lensSlug;
+  const rows = useMemo(
+    () => (lensOn && lensFile.state === "ready" ? lensFile.data.months[month] ?? [] : []),
+    [lensOn, lensFile, month],
+  );
+  const lensMap = useMemo(() => (lensOn ? new Map(rows.map((r) => [r.id, r.lift])) : null), [rows, lensOn]);
+  const slugByName = useMemo(() => new Map(companies.map((c) => [c.name, c.slug])), [companies]);
+  const byVolume = companies.filter((c) => c.reason === "most complaints");
+  const leaders = companies.filter((c) => c.reason !== "most complaints");
 
   const analysisFile = files[meta.analysis_month];
   const briefs = analysisFile?.clusters.filter((c) => c.skeptic) ?? [];
@@ -147,11 +155,20 @@ function Radar({ meta, files }: { meta: Meta; files: Record<string, RadarFile> }
       <Header current="radar">
         <label className={styles.lensLabel}>
           Bank lens
-          <select className={styles.select} value={lens} onChange={(e) => setLens(e.target.value)}>
-            <option value={ALL_COMPANIES}>{ALL_COMPANIES}</option>
-            {lensOptions.map((name) => (
-              <option key={name} value={name}>{name}</option>
-            ))}
+          <select className={styles.select} value={lensSlug} disabled={companies.length === 0}
+            title={companies.length === 0 ? "Run make export to build the lens" : undefined}
+            onChange={(e) => setLensSlug(e.target.value)}>
+            <option value={ALL_COMPANIES}>All companies</option>
+            {byVolume.length > 0 && (
+              <optgroup label="Most complaints">
+                {byVolume.map((c) => <option key={c.slug} value={c.slug}>{c.name}</option>)}
+              </optgroup>
+            )}
+            {leaders.length > 0 && (
+              <optgroup label="Leads a briefed cluster by lift">
+                {leaders.map((c) => <option key={c.slug} value={c.slug}>{c.name}</option>)}
+              </optgroup>
+            )}
           </select>
         </label>
       </Header>
@@ -209,13 +226,13 @@ function Radar({ meta, files }: { meta: Meta; files: Record<string, RadarFile> }
           )}
           {view === "radar" && lensOn && (
             <div className={styles.legend}>
-              <span>Lens color: {lens}&apos;s lift in each cluster</span>
+              <span>Lens color: {lensName}&apos;s lift in each cluster</span>
               {["under 1", "1–2", "2–5", "over 5"].map((label, i) => (
                 <span key={label} className={styles.key}>
                   <span className={styles.swatch} style={{ background: SEVERITY_COLORS[i] }} />{label}
                 </span>
               ))}
-              <span>Faded: not among the cluster&apos;s top companies</span>
+              <span>Faded: fewer than 10 of its complaints</span>
             </div>
           )}
 
@@ -240,10 +257,16 @@ function Radar({ meta, files }: { meta: Meta; files: Record<string, RadarFile> }
           briefCount={meta.clusters_with_briefs}
           keptCount={kept}
           selection={selectedId ? { id: selectedId, cluster: selectedCluster, rank: rankOf(file, selectedId), detail } : null}
-          lens={lensOn ? { company: lens, rows, onClear: () => setLens(ALL_COMPANIES) } : null}
+          lens={lensOn ? {
+            company: lensName,
+            rows,
+            loading: lensFile.state === "loading",
+            onClear: () => setLensSlug(ALL_COMPANIES),
+          } : null}
+          lensable={new Set(slugByName.keys())}
           reduced={reduced}
           onSelect={setSelectedId}
-          onLens={setLens}
+          onLens={(name) => setLensSlug(slugByName.get(name) ?? ALL_COMPANIES)}
           onPickMonth={(m) => goTo(Math.max(0, months.indexOf(m)))}
         />
       </main>

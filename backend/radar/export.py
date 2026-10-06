@@ -15,12 +15,13 @@ from pathlib import Path
 import pandas as pd
 from pydantic import BaseModel
 
-from radar import emergence, templating
+from radar import emergence, lens, templating
 from radar.agents.evidence import severity_mean, vulnerable_share
 from radar.ingest import complete_months
 from radar.schemas import (
     Brief,
     BriefSummary,
+    CompaniesFile,
     ClusterDetail,
     ClusterStats,
     EmergenceResult,
@@ -45,10 +46,9 @@ SOURCE_URL = (
 CLUSTER_EXAMPLES = 5
 THEME_EXAMPLES = 3
 SIZE_LIMIT_BYTES = 20 * 1024 * 1024
-# Written by later steps (lens, backtest, evaluate); listed in meta when present.
-OPTIONAL_FILES = {"companies": "companies.json", "backtests": "backtests.json",
-                  "evaluation": "evaluation.json"}
-GENERATED_PATTERNS = ("radar_*.json", "cluster_*.json")
+# Written by later steps (backtest, evaluate); listed in meta when present.
+OPTIONAL_FILES = {"backtests": "backtests.json", "evaluation": "evaluation.json"}
+GENERATED_PATTERNS = ("radar_*.json", "cluster_*.json", "lens_*.json")
 
 
 @dataclass(frozen=True)
@@ -150,16 +150,21 @@ def build(
 ) -> dict[str, BaseModel]:
     """Every public file, keyed by file name. Pure: reads nothing from disk."""
     months = radar_months(df)
+    results = [analysis if m == analysis.month else emergence.compute(df, month=m) for m in months]
     files: dict[str, BaseModel] = {}
-    for month in months:
-        is_analysis = month == analysis.month
-        result = analysis if is_analysis else emergence.compute(df, month=month)
+    for result in results:
+        is_analysis = result.month == analysis.month
         shares = analysis_templated if is_analysis else templating.templated_shares(marked, result)
-        files[f"radar_{month}.json"] = radar_file(result, shares, ai if is_analysis else NO_AI)
+        files[f"radar_{result.month}.json"] = radar_file(result, shares, ai if is_analysis else NO_AI)
     for c in analysis.clusters:
         files[f"cluster_{c.id}.json"] = cluster_detail(
             c, analysis.month, analysis_templated.get(c.id), ai
         )
+    counts = lens.monthly_counts(df)
+    companies = lens.pick_companies(counts, analysis, set(ai.briefs))
+    files["companies.json"] = CompaniesFile(month=analysis.month, companies=companies)
+    for slug, lens_file in lens.build(counts, results, companies).items():
+        files[f"lens_{slug}.json"] = lens_file
     window = complete_months(df)
     files["meta.json"] = Meta(
         source=SOURCE,
@@ -179,6 +184,15 @@ def build(
 
 def available_optional(public_dir: Path) -> list[str]:
     return [name for name, file in OPTIONAL_FILES.items() if (public_dir / file).exists()]
+
+
+def copy_optional(work_dir: Path, public_dir: Path) -> list[str]:
+    """Publish backtest and evaluation results that later steps wrote to data/work/."""
+    public_dir.mkdir(parents=True, exist_ok=True)
+    found = [file for file in OPTIONAL_FILES.values() if (work_dir / file).exists()]
+    for file in found:
+        (public_dir / file).write_text((work_dir / file).read_text())
+    return found
 
 
 def write(public_dir: Path, files: dict[str, BaseModel]) -> int:

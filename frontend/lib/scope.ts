@@ -3,6 +3,11 @@
 import { FAMILIES } from "./format";
 import type { ProductFamily, RadarCluster, RadarFile } from "./types";
 
+interface Placed {
+  id: string;
+  product_family: ProductFamily;
+}
+
 export const SIZE = 640;
 export const CENTER = SIZE / 2;
 export const RADIUS = 248;
@@ -31,10 +36,10 @@ export function blipRadius(volume: number): { r: number; capped: boolean } {
  * inward as the month changes. Clusters share their family's wedge evenly, using
  * every cluster that appears in any month.
  */
-export function clusterAngles(files: RadarFile[]): Record<string, number> {
+export function clusterAngles(groups: Placed[][]): Record<string, number> {
   const byFamily = new Map<ProductFamily, Set<string>>();
-  files.forEach((file) =>
-    file.clusters.forEach((c) => {
+  groups.forEach((group) =>
+    group.forEach((c) => {
       const ids = byFamily.get(c.product_family) ?? new Set<string>();
       ids.add(c.id);
       byFamily.set(c.product_family, ids);

@@ -395,9 +395,19 @@ Verify each milestone, then summarize what was done and anything the user must d
 - Frontend: all radar months load up front. Months other than the analysis month show
   neutral blips (no brief, severity, or verdict for that month); selecting one shows
   that month's statistics and the analysis month's brief, labelled as such. The slider
-  starts at the first month with velocity history (Dec 2025). The bank lens is built
-  client-side from each cluster's top-10 companies until `lens` precomputes it; lift
-  between 0.8 and 1.2 reads "in line with peers".
+  starts at the first month with velocity history (Dec 2025). Lift between 0.8 and
+  1.2 reads "in line with peers".
+- `lens` runs inside `export` (it needs every month's emergence result). Per company and
+  radar month it lists clusters with 10+ of its recent complaints, with lift (same
+  definition as emergence), its own velocity, and its peers' velocity. The picker holds
+  the 15 companies with the most complaints plus the top-lift company of each briefed
+  cluster (20+ complaints), so companies a brief names (e.g. Dave) can be lensed.
+- A backtest case is "flagged" only if the cluster ranks in the briefed top 25 as of
+  `as_of` and the skeptic keeps its brief; otherwise it is reported as a miss with the
+  reason. Backtests skip themes (as the spec lists) and write `data/work/backtests.json`;
+  `export` publishes it and `evaluation.json` when present.
+- Finding: the payday "can't stop withdrawals" cluster was below the 30/mo volume floor
+  until June 2026, so an as-of replay for March to May would not see it.
 - `ingest` keeps the `EXPORTS` dict (keyed by covered months) and `COLUMNS`/`snake()`
   matching from `data_spike/spike.py`; `--exports` accepts `recent`, `all`, or
   comma-separated keys. Dedupe prefers the copy of a complaint that has a narrative.

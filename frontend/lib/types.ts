@@ -143,3 +143,62 @@ export interface Meta {
   models: ModelIds;
   available: string[];
 }
+
+export interface CompanyListItem {
+  name: string;
+  slug: string;
+  complaints: number;
+  reason: string;
+}
+
+export interface CompaniesFile {
+  month: string;
+  companies: CompanyListItem[];
+}
+
+export interface LensCluster {
+  id: string;
+  product: string;
+  issue: string;
+  product_family: ProductFamily;
+  complaints: number;
+  lift: number;
+  company_velocity: number;
+  peer_velocity: number;
+}
+
+export interface LensFile {
+  company: string;
+  slug: string;
+  months: Record<string, LensCluster[]>;
+}
+
+export interface MiniBlip {
+  id: string;
+  product_family: ProductFamily;
+  velocity: number;
+  recent_monthly_avg: number;
+}
+
+export interface BacktestResult {
+  name: string;
+  public_date: string;
+  as_of: string;
+  cluster: string;
+  source_url: string;
+  found: boolean;
+  rank: number | null;
+  clusters_ranked: number;
+  velocity: number | null;
+  target_id: string | null;
+  headline: string | null;
+  verdict: Verdict | null;
+  note: string | null;
+  flagged: boolean;
+  outcome: string;
+  scope: MiniBlip[];
+}
+
+export interface BacktestsFile {
+  results: BacktestResult[];
+}

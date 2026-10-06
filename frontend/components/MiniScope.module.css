@@ -1,0 +1,29 @@
+.scope {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.bg {
+  fill: var(--scope);
+}
+
+.ring {
+  fill: none;
+  stroke: var(--scope-ring);
+  stroke-width: 2;
+}
+
+.blip {
+  fill: rgba(220, 214, 240, 0.45);
+}
+
+.target {
+  fill: #e8833a;
+}
+
+.targetRing {
+  fill: none;
+  stroke: var(--scope-ink);
+  stroke-width: 4;
+}

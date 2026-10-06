@@ -1,0 +1,17 @@
+# Backtest cases. Add real cases from the CFPB enforcement actions page
+# (https://www.consumerfinance.gov/enforcement/actions/) and verify each one yourself.
+# The pipeline never chooses or invents cases.
+#
+# Fields:
+#   name         short label for the case
+#   public_date  YYYY-MM-DD the action or event became public
+#   as_of        YYYY-MM, the last month of data the replay may see (before public_date)
+#   cluster      "<product> / <issue>" exactly as CFPB labels it
+#   source_url   link to the public source
+#
+# Example (commented out; not a real case):
+# - name: "Example lender, unauthorized withdrawals"
+#   public_date: "2026-07-15"
+#   as_of: "2026-04"
+#   cluster: "Payday loan, title loan, personal loan, or advance loan / Can't stop withdrawals from your bank account"
+#   source_url: "https://www.consumerfinance.gov/enforcement/actions/..."

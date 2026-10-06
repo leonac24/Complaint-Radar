@@ -68,14 +68,15 @@ function buildBlip(c: RadarCluster, angle: number, lens: Map<string, number> | n
   if (lens) {
     const lift = lens.get(c.id);
     return lift === undefined
-      ? { ...base, r: 3, capped: false, fill: "rgba(220,214,240,0.5)", opacity: 0.35, title, meta }
+      ? { ...base, r: 3, capped: false, fill: "var(--blip-faded)", opacity: 0.35, title, meta }
       : { ...base, r: Math.max(size.r, 7), capped: false, fill: liftColor(lift), title, meta: `${meta} · lift ${liftText(lift)}` };
   }
-  if (state === "kept") return { ...base, fill: severityColor(c.severity) ?? "#DCD6F0", title, meta };
+  if (state === "kept") return { ...base, fill: severityColor(c.severity) ?? "var(--scope-ink-2)", title, meta };
   if (state === "rejected") {
-    return { ...base, fill: "rgba(27,22,48,0.6)", stroke: "#8E879C", strokeWidth: 2.5, title, meta };
+    // Hollow, as the spec asks: outline only. The hit circle keeps it easy to click.
+    return { ...base, fill: "transparent", stroke: "var(--rejected)", strokeWidth: 2.5, title, meta };
   }
-  return { ...base, fill: "rgba(220,214,240,0.55)", title, meta };
+  return { ...base, fill: "var(--blip-none)", title, meta };
 }
 
 export function Scope({ file, allFiles, selectedId, onSelect, reduced, dimmed, lens, overlay }: Props) {
@@ -183,9 +184,10 @@ export function Scope({ file, allFiles, selectedId, onSelect, reduced, dimmed, l
                 onFocus={(event) => event.currentTarget.matches(":focus-visible") && setFocus(id)}
                 onBlur={() => setFocus(null)}
               >
-                <circle data-angle={b.angle} r={b.r + 7} opacity={0} fill={b.state === "rejected" ? "#DCD6F0" : b.fill} />
+                <circle data-angle={b.angle} r={b.r + 7} opacity={0}
+                  style={{ fill: b.state === "rejected" ? "var(--scope-ink-2)" : b.fill }} />
                 <circle r={Math.max(b.r + 4, 12)} fill="transparent" />
-                <circle r={b.r} fill={b.fill} stroke={b.stroke} strokeWidth={b.strokeWidth} />
+                <circle r={b.r} style={{ fill: b.fill, stroke: b.stroke, strokeWidth: b.strokeWidth }} />
                 {b.capped && <circle r={b.r + 3.5} className={styles.cap} />}
                 {selectedId === id && <circle r={b.r + 6} className={styles.selected} />}
                 {focus === id && <circle r={b.r + 10} className={styles.focus} />}

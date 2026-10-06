@@ -25,6 +25,7 @@ from radar.schemas import (
     EmergenceResult,
     Extraction,
     MiniBlip,
+    ModelIds,
 )
 from radar.taxonomy import cluster_label
 
@@ -72,12 +73,11 @@ def run_case(
     case: BacktestCase,
     df: pd.DataFrame,
     llm: LLM,
-    models: tuple[str, str, str],
+    models: ModelIds,
     cache: dict[str, Extraction],
     save_extractions: Callable[[dict[str, Extraction], str], None],
 ) -> BacktestResult:
-    """Replay one case. `models` is (fast, writer, reasoning)."""
-    fast, writer, reasoning = models
+    """Replay one case with only data up to its as_of month."""
     data = emergence.filter_as_of(df, case.as_of)
     result = emergence.compute(data, as_of=case.as_of)
     target = find_cluster(result, case.cluster)
@@ -96,8 +96,8 @@ def run_case(
     narrowed = result.model_copy(update={"clusters": [target]})
     sampled = extract.sample(data, narrowed, 1, PER_CLUSTER)
     work = extract.plan(sampled, cache, None)
-    fresh, _failed = extract.run(llm, fast, work.to_call, use_batch=False)
-    save_extractions(fresh, fast)
+    fresh, _failed = extract.run(llm, models.fast, work.to_call, use_batch=False)
+    save_extractions(fresh, models.fast)
     known = {**cache, **fresh}
     items = {s.complaint_id: known[s.complaint_id] for s in sampled if s.complaint_id in known}
     if not items:
@@ -105,8 +105,8 @@ def run_case(
 
     shares = templating.templated_shares(templating.mark_templated(data), narrowed)
     package = evidence.build(target, result, shares.get(target.id), None, items)
-    brief = analyst.write_brief(llm, writer, package)
-    review = skeptic.review_brief(llm, reasoning, brief, package)
+    brief = analyst.write_brief(llm, models.writer, package)
+    review = skeptic.review_brief(llm, models.reasoning, brief, package)
     done = base.model_copy(update={
         "headline": brief.headline, "verdict": review.verdict, "note": review.note,
         "flagged": review.verdict == "kept",

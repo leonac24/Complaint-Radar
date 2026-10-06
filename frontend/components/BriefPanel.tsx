@@ -132,11 +132,8 @@ function SelectedCluster(props: Props & { selection: Selection }) {
     }, REPLAY_MS);
   };
 
-  // Replay the skeptic once when a cluster with a brief opens; stop on close.
-  useEffect(() => {
-    replay();
-    return () => window.clearInterval(timer.current);
-  }, [hasBrief]);
+  // The replay runs only when the reader asks for it; stop it if the panel closes.
+  useEffect(() => () => window.clearInterval(timer.current), []);
 
   if (!stats) {
     return (

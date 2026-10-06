@@ -195,7 +195,8 @@ For a selected company, compute its clusters with lift and velocity relative to 
 ### 5.11 export
 Write `public_data/` with small JSON files the frontend can serve statically:
 `radar_<YYYY-MM>.json` for each month in the window, `cluster_<id>.json`,
-`lens_<company-slug>.json`, `backtests.json`, `evaluation.json`, and `meta.json`
+`companies.json` (the lens picker), `lens_<company-slug>.json`, `backtests.json`,
+`evaluation.json`, and `meta.json`
 (source, window, generated time, model ids). Keep the total under 20 MB.
 
 ## 6. Data contract
@@ -413,6 +414,14 @@ Verify each milestone, then summarize what was done and anything the user must d
   wherever it appears (`evaluate --reviewer`). Cases are real state actions with source
   links, clusters chosen from the allegations before the replay; the CFPB itself took
   no institutional enforcement actions in 2026. Result: 1 of 3 flagged.
+- Code review fixes (2026-10-06): the skeptic's verdict must agree with its checks or
+  the response is rejected (one retry); the verdict is never rewritten in code, because
+  the note was written for the model's own verdict. `product_family` is a Literal in
+  Python as in TypeScript. API endpoints return the contract models, so every served
+  file is validated. All colors live in `frontend/app/globals.css` tokens. The app
+  opens on January of the analysis year so playback reaches the August 2026 moment;
+  the skeptic replay runs only when the reader clicks it. The slider's Play button is
+  kept as a user-started action.
 - `ingest` keeps the `EXPORTS` dict (keyed by covered months) and `COLUMNS`/`snake()`
   matching from `data_spike/spike.py`; `--exports` accepts `recent`, `all`, or
   comma-separated keys. Dedupe prefers the copy of a complaint that has a narrative.

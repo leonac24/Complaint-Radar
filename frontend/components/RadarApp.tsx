@@ -90,7 +90,9 @@ function Radar({ meta, files }: { meta: Meta; files: Record<string, RadarFile> }
   const allFiles = useMemo(() => months.flatMap((m) => files[m] ?? []), [months, files]);
   const reduced = usePrefersReducedMotion();
 
-  const [index, setIndex] = useState(Math.max(0, months.indexOf(meta.analysis_month)));
+  // Open early in the analysis year, so playing forward reaches the August 2026 moment.
+  const opening = months.findIndex((m) => m.startsWith(meta.analysis_month.slice(0, 4)));
+  const [index, setIndex] = useState(Math.max(0, opening));
   const [augDismissed, setAugDismissed] = useState(true);
   const [view, setView] = useState<"radar" | "table">("radar");
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -219,7 +221,7 @@ function Radar({ meta, files }: { meta: Meta; files: Record<string, RadarFile> }
                 {SEVERITY_COLORS.map((c) => <span key={c} className={styles.swatch} style={{ background: c }} />)}
                 5
               </span>
-              <span className={styles.key}><span className={styles.swatch} style={{ background: "#5E5870" }} />Kept</span>
+              <span className={styles.key}><span className={styles.swatch} style={{ background: "var(--ink-2)" }} />Kept</span>
               <span className={styles.key}><span className={styles.ring} />Rejected</span>
               <span className={styles.key}><span className={styles.dot} />No brief</span>
             </div>

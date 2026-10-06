@@ -6,7 +6,7 @@ import pandas as pd
 import pytest
 from fastapi.testclient import TestClient
 
-from radar import api, emergence, export, templating
+from radar import api, export, templating
 from radar.schemas import (
     Brief,
     ClusterDetail,
@@ -25,11 +25,6 @@ MODELS = ModelIds(fast="f", writer="w", reasoning="r")
 @pytest.fixture(scope="module")
 def marked(complaints: pd.DataFrame) -> pd.DataFrame:
     return templating.mark_templated(complaints)
-
-
-@pytest.fixture(scope="module")
-def analysis(complaints: pd.DataFrame):
-    return emergence.compute(complaints)
 
 
 @pytest.fixture(scope="module")

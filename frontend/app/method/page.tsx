@@ -6,6 +6,9 @@ import { CHECK_LABEL, CHECK_ORDER, monthLong, percent } from "@/lib/format";
 import type { ClusterDetail, Evaluation, Meta } from "@/lib/types";
 import styles from "../pages.module.css";
 
+// The default for RADAR_MODEL_REASONING in backend/radar/config.py.
+const DEFAULT_REASONING_MODEL = "claude-opus-5-5";
+
 interface SkepticTotals {
   kept: number;
   rejected: number;
@@ -73,6 +76,13 @@ export default function Method() {
         )}
         {meta.state === "missing" && (
           <div className={styles.empty}>No exported data yet. Run <code>make pipeline</code>.</div>
+        )}
+
+        {models && models.reasoning !== DEFAULT_REASONING_MODEL && (
+          <p className={styles.muted}>
+            Themes and the skeptic default to <code>{DEFAULT_REASONING_MODEL}</code>; this run used{" "}
+            <code>{models.reasoning}</code> to stay within the project&apos;s budget.
+          </p>
         )}
 
         <ol className={styles.pipeline} aria-label="Pipeline">

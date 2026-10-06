@@ -13,11 +13,6 @@ def counts(complaints: pd.DataFrame) -> pd.Series:
     return lens.monthly_counts(complaints)
 
 
-@pytest.fixture(scope="module")
-def analysis(complaints: pd.DataFrame):
-    return emergence.compute(complaints)
-
-
 def test_planted_company_is_overrepresented_and_faster_than_peers(counts, analysis) -> None:
     rows = lens.lens_clusters(counts, analysis, fixtures.ACCEL_COMPANY)
     accel = next(r for r in rows if r.id == cluster_id(*fixtures.ACCELERATING))

@@ -60,7 +60,8 @@ export const percent = (share: number, digits = 0) => `${(share * 100).toFixed(d
 
 export const capitalize = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
 
-export const SEVERITY_COLORS = ["#A9CFE0", "#EFC15A", "#E8833A", "#C23B4E"] as const;
+// CSS variables from app/globals.css; use them through `style`, not SVG presentation attributes.
+export const SEVERITY_COLORS = ["var(--sev-1)", "var(--sev-2)", "var(--sev-3)", "var(--sev-4)"] as const;
 
 /** Mean severity 1-5 -> one of four colors, low to high. */
 export function severityColor(severity: number | null): string | null {

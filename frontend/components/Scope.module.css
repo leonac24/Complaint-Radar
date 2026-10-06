@@ -28,10 +28,10 @@
   will-change: transform;
   background: conic-gradient(
     from 0deg,
-    rgba(220, 214, 240, 0) 0deg,
-    rgba(220, 214, 240, 0) 285deg,
-    rgba(220, 214, 240, 0.05) 320deg,
-    rgba(220, 214, 240, 0.26) 360deg
+    rgb(var(--lavender-rgb) / 0) 0deg,
+    rgb(var(--lavender-rgb) / 0) 285deg,
+    rgb(var(--lavender-rgb) / 0.05) 320deg,
+    rgb(var(--lavender-rgb) / 0.26) 360deg
   );
 }
 
@@ -42,11 +42,11 @@
   width: 2px;
   margin-left: -1px;
   height: 50%;
-  background: linear-gradient(to top, rgba(220, 214, 240, 0.1), var(--scope-ink-2));
+  background: linear-gradient(to top, rgb(var(--lavender-rgb) / 0.1), var(--scope-ink-2));
 }
 
 .core {
-  fill: rgba(220, 214, 240, 0.05);
+  fill: rgb(var(--lavender-rgb) / 0.05);
 }
 
 .ring {
@@ -62,7 +62,7 @@
 
 .cap {
   fill: none;
-  stroke: rgba(220, 214, 240, 0.6);
+  stroke: rgb(var(--lavender-rgb) / 0.6);
   stroke-width: 1;
   stroke-dasharray: 2 3;
 }
@@ -113,7 +113,7 @@
   font-size: 13px;
   line-height: 1.35;
   pointer-events: none;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 6px 20px var(--shadow);
 }
 
 .tipTitle {

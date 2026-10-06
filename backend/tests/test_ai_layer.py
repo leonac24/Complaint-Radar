@@ -1,22 +1,23 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 from types import SimpleNamespace
 
 import pandas as pd
 import pytest
 
-from radar import emergence, extract, themes
+from radar import extract, themes
 from radar.agents import analyst, evidence, skeptic
 from radar.llm import ClaudeLLM, LLMError
-from radar.schemas import Brief, Extraction, ThemeOut, ThemeSet
+from radar.schemas import Brief, EmergenceResult, Extraction, ThemeOut, ThemeSet
 from tests import fixtures
-from tests.fakes import EXTRACTION, REVIEW, FakeLLM
+from tests.fakes import EXTRACTION, REVIEW, Call, FakeLLM
 
 
 @pytest.fixture(scope="module")
-def result(complaints: pd.DataFrame):
-    return emergence.compute(complaints)
+def result(analysis: EmergenceResult) -> EmergenceResult:
+    return analysis
 
 
 # ---------- extract ----------
@@ -84,7 +85,7 @@ def test_themes_skip_thin_clusters(result) -> None:
 
 
 def test_themes_drop_invented_and_duplicate_ids(result) -> None:
-    def respond(call):
+    def respond(call: Call) -> dict[str, Any]:
         return {"themes": [
             {"label": "a", "description": "d", "complaint_ids": ["0", "1", "999"]},
             {"label": "b", "description": "d", "complaint_ids": ["1", "2"]},
@@ -144,13 +145,23 @@ def test_skeptic_rejects_missing_checks(result) -> None:
         skeptic.review_brief(FakeLLM(responder=lambda c: partial), "m", brief, _package(result))
 
 
-def test_skeptic_verdict_follows_checks(result) -> None:
+def test_skeptic_rejects_a_verdict_that_contradicts_its_checks(result) -> None:
     failed = [{**REVIEW["checks"][0], "result": "fail"}, *REVIEW["checks"][1:]]
     contradictory = {**REVIEW, "checks": failed, "verdict": "kept"}
     brief = Brief.model_validate(analyst.write_brief(FakeLLM(), "m", _package(result)))
-    review = skeptic.review_brief(FakeLLM(responder=lambda c: contradictory), "m", brief,
-                                  _package(result))
-    assert review.verdict == "rejected"
+    llm = FakeLLM(responder=lambda c: contradictory)
+    with pytest.raises(LLMError, match="disagrees"):
+        skeptic.review_brief(llm, "m", brief, _package(result))
+    assert len(llm.calls) == skeptic.ATTEMPTS
+
+
+def test_skeptic_retries_once_after_an_inconsistent_answer(result) -> None:
+    failed = [{**REVIEW["checks"][0], "result": "fail"}, *REVIEW["checks"][1:]]
+    answers = iter([{**REVIEW, "checks": failed, "verdict": "kept"}, REVIEW])
+    brief = Brief.model_validate(analyst.write_brief(FakeLLM(), "m", _package(result)))
+    llm = FakeLLM(responder=lambda c: next(answers))
+    assert skeptic.review_brief(llm, "m", brief, _package(result)).verdict == "kept"
+    assert len(llm.calls) == 2
 
 
 # ---------- Claude client request shapes ----------

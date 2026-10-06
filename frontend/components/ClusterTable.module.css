@@ -62,7 +62,7 @@
 }
 
 .selected {
-  background: #e6e1ee;
+  background: var(--row-selected);
 }
 
 .rowButton {

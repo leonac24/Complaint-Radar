@@ -14,10 +14,10 @@ const TILES: Record<string, [row: number, col: number]> = {
 };
 
 const BUCKETS = [
-  { max: 2, fill: "#E2DEEA", ink: "#1E1B2E", label: "under 2%" },
-  { max: 5, fill: "#B7AECF", ink: "#1E1B2E", label: "2–5%" },
-  { max: 10, fill: "#7C6FA8", ink: "#F5F3F8", label: "5–10%" },
-  { max: Infinity, fill: "#3A2E66", ink: "#F5F3F8", label: "over 10%" },
+  { max: 2, fill: "var(--map-1)", ink: "var(--ink)", label: "under 2%" },
+  { max: 5, fill: "var(--map-2)", ink: "var(--ink)", label: "2–5%" },
+  { max: 10, fill: "var(--map-3)", ink: "var(--scope-ink)", label: "5–10%" },
+  { max: Infinity, fill: "var(--map-4)", ink: "var(--scope-ink)", label: "over 10%" },
 ] as const;
 
 const bucket = (pct: number) => BUCKETS.find((b) => pct < b.max) ?? BUCKETS[3];
@@ -48,8 +48,8 @@ export function StateMap({ states }: { states: Record<string, number> }) {
           return (
             <g key={s} transform={`translate(${col * CELL} ${row * CELL})`}>
               <title>{`${s}: ${pct < 0.1 ? "under 0.1" : pct.toFixed(1)}%`}</title>
-              <rect width={CELL - 2} height={CELL - 2} rx={4} fill={b.fill} />
-              <text x={(CELL - 2) / 2} y={(CELL - 2) / 2} fill={b.ink} className={styles.code}>{s}</text>
+              <rect width={CELL - 2} height={CELL - 2} rx={4} style={{ fill: b.fill }} />
+              <text x={(CELL - 2) / 2} y={(CELL - 2) / 2} style={{ fill: b.ink }} className={styles.code}>{s}</text>
             </g>
           );
         })}

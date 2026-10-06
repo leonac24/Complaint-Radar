@@ -215,7 +215,7 @@
 }
 
 .chipDot {
-  background: #a9cfe0;
+  background: var(--sev-1);
 }
 
 .chipRing {
@@ -311,7 +311,7 @@
 }
 
 .themeOn {
-  background: rgba(220, 214, 240, 0.14);
+  background: rgb(var(--lavender-rgb) / 0.14);
 }
 
 .themeRow {
@@ -334,7 +334,7 @@
   display: block;
   height: 10px;
   border-radius: 5px;
-  background: rgba(220, 214, 240, 0.16);
+  background: rgb(var(--lavender-rgb) / 0.16);
 }
 
 .barFill {
@@ -431,7 +431,7 @@
 }
 
 .checkNameFail {
-  color: #7a1c33;
+  color: var(--fail-name);
 }
 
 .reason,

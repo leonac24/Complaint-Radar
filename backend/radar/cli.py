@@ -24,6 +24,7 @@ from radar.schemas import (
     Brief,
     EmergenceResult,
     Evaluation,
+    Extraction,
     ModelIds,
     SkepticReview,
     StabilityResult,
@@ -64,6 +65,11 @@ def require(path: Path, command: str) -> Path:
     if not path.exists():
         sys.exit(f"missing {path}. Run: python -m radar.cli {command}")
     return path
+
+
+def model_ids(settings: Settings) -> ModelIds:
+    return ModelIds(fast=settings.model_fast, writer=settings.model_writer,
+                    reasoning=settings.model_reasoning)
 
 
 def make_llm() -> LLM:
@@ -278,8 +284,7 @@ def cmd_export(args: argparse.Namespace, settings: Settings) -> None:
     analysis = load_emergence(settings, None)
     shares: dict = read_json(require(settings.work_dir / "templating.json", "templating"), {})
     ai = load_ai_outputs(settings)
-    models = ModelIds(fast=settings.model_fast, writer=settings.model_writer,
-                      reasoning=settings.model_reasoning)
+    models = model_ids(settings)
     public = settings.public_dir
     export.copy_optional(settings.work_dir, public)
     files = export.build(df, marked, analysis, shares, ai, models,
@@ -317,9 +322,9 @@ def cmd_backtest(args: argparse.Namespace, settings: Settings) -> None:
     saved = {r.name: r for r in (BacktestsFile.model_validate_json(out.read_text()).results
                                   if out.exists() else [])}
     llm = make_llm()
-    models = (settings.model_fast, settings.model_writer, settings.model_reasoning)
+    models = model_ids(settings)
 
-    def save_extractions(fresh: dict, model: str) -> None:
+    def save_extractions(fresh: dict[str, Extraction], model: str) -> None:
         extract.append_cache(cache_path, fresh, model)
         cache.update(fresh)
 

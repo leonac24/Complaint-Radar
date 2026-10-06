@@ -37,7 +37,7 @@
 }
 
 .recent {
-  fill: #d8d2e4;
+  fill: var(--band-recent);
 }
 
 .marker {
@@ -64,7 +64,7 @@
 }
 
 .peak {
-  fill: #e8833a;
+  fill: var(--sev-3);
 }
 
 .hit {
@@ -72,7 +72,7 @@
 }
 
 .hitOn {
-  fill: rgba(75, 63, 138, 0.08);
+  fill: var(--hover-tint);
 }
 
 .peakLabel,

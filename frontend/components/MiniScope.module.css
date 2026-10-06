@@ -15,11 +15,11 @@
 }
 
 .blip {
-  fill: rgba(220, 214, 240, 0.45);
+  fill: rgb(var(--lavender-rgb) / 0.45);
 }
 
 .target {
-  fill: #e8833a;
+  fill: var(--sev-3);
 }
 
 .targetRing {

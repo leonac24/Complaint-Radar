@@ -1,17 +1,17 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
 import pandas as pd
-import pytest
 
 from radar import backtest, emergence
-from radar.schemas import BacktestCase, Extraction
+from radar.schemas import BacktestCase, BacktestResult, Extraction, ModelIds
 from radar.taxonomy import cluster_label
 from tests import fixtures
-from tests.fakes import REVIEW, FakeLLM
+from tests.fakes import REVIEW, Call, FakeLLM, default
 
-MODELS = ("fast", "writer", "reasoning")
+MODELS = ModelIds(fast="fast", writer="writer", reasoning="reasoning")
 ACCEL = cluster_label(*fixtures.ACCELERATING)
 
 
@@ -20,7 +20,9 @@ def case(cluster: str, as_of: str = "2026-06") -> BacktestCase:
                         source_url="https://example.org")
 
 
-def run(c: BacktestCase, complaints: pd.DataFrame, llm: FakeLLM | None = None):
+def run(
+    c: BacktestCase, complaints: pd.DataFrame, llm: FakeLLM | None = None
+) -> tuple[BacktestResult, dict[str, Extraction]]:
     saved: dict[str, Extraction] = {}
     result = backtest.run_case(c, complaints, llm or FakeLLM(), MODELS, {},
                                lambda fresh, model: saved.update(fresh))
@@ -45,10 +47,10 @@ def test_replay_never_sees_later_data(complaints: pd.DataFrame) -> None:
 
 
 def test_rejected_brief_is_a_miss(complaints: pd.DataFrame) -> None:
-    rejected = {**REVIEW, "checks": [{**REVIEW["checks"][0], "result": "fail"}, *REVIEW["checks"][1:]]}
+    failed = [{**REVIEW["checks"][0], "result": "fail"}, *REVIEW["checks"][1:]]
+    rejected = {**REVIEW, "verdict": "rejected", "checks": failed}
 
-    def respond(call):
-        from tests.fakes import default
+    def respond(call: Call) -> dict[str, Any]:
         return rejected if call.output.__name__ == "SkepticReview" else default(call)
 
     result, _ = run(case(ACCEL), complaints, FakeLLM(responder=respond))

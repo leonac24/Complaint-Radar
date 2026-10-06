@@ -11,6 +11,8 @@ from typing import Any, Literal, get_args
 
 from pydantic import BaseModel, Field, field_validator
 
+from radar.taxonomy import ProductFamily
+
 RootCauseFamily = Literal[
     "fees_and_charges",
     "disputes_and_errors",
@@ -50,7 +52,7 @@ class ClusterStats(BaseModel):
     id: str
     product: str
     issue: str
-    product_family: str
+    product_family: ProductFamily
     rank: int
     velocity: float
     recent_monthly_avg: float
@@ -163,7 +165,7 @@ class RadarCluster(BaseModel):
     id: str
     product: str
     issue: str
-    product_family: str
+    product_family: ProductFamily
     velocity: float
     recent_monthly_avg: float
     baseline_monthly_avg: float
@@ -202,7 +204,7 @@ class ClusterDetail(BaseModel):
     month: str
     product: str
     issue: str
-    product_family: str
+    product_family: ProductFamily
     velocity: float
     recent_monthly_avg: float
     baseline_monthly_avg: float
@@ -262,7 +264,7 @@ class LensCluster(BaseModel):
     id: str
     product: str
     issue: str
-    product_family: str
+    product_family: ProductFamily
     complaints: int  # the company's complaints in the cluster's recent window
     lift: float
     company_velocity: float
@@ -288,7 +290,7 @@ class BacktestCase(BaseModel):
 
 class MiniBlip(BaseModel):
     id: str
-    product_family: str
+    product_family: ProductFamily
     velocity: float
     recent_monthly_avg: float
 

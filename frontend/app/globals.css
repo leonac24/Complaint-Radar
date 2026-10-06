@@ -27,6 +27,30 @@
   --tag-bg: #f3e5c6;
   --tag-ink: #6a4a0e;
   --focus: #efc15a;
+  --fail-name: #7a1c33;
+
+  /* Scope tints: the pale lavender of the sweep at different strengths */
+  --lavender-rgb: 220 214 240;
+  --blip-none: rgb(var(--lavender-rgb) / 0.55);
+  --blip-faded: rgb(var(--lavender-rgb) / 0.5);
+  --shadow: rgb(0 0 0 / 0.25);
+
+  /* Mean severity 1 to 5, low to high (also reused for lift in the bank lens) */
+  --sev-1: #a9cfe0;
+  --sev-2: #efc15a;
+  --sev-3: #e8833a;
+  --sev-4: #c23b4e;
+
+  /* State map: share of claims, low to high, with legible text on each */
+  --map-1: #e2deea;
+  --map-2: #b7aecf;
+  --map-3: #7c6fa8;
+  --map-4: #3a2e66;
+
+  /* Small surfaces */
+  --row-selected: #e6e1ee;
+  --band-recent: #d8d2e4;
+  --hover-tint: rgb(75 63 138 / 0.08);
 
   --sans: "Familjen Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
   --serif: "Spectral", Georgia, "Times New Roman", serif;

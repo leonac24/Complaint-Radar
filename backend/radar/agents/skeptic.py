@@ -55,15 +55,40 @@ def user_message(brief: Brief, evidence: dict[str, Any]) -> str:
     )
 
 
+ATTEMPTS = 2
+
+
 def validate_checks(review: SkepticReview) -> SkepticReview:
+    """Require all five checks, and a verdict (and so a note) that agrees with them.
+
+    The verdict is never corrected in code: the note was written for the model's
+    verdict, so a corrected verdict could sit next to a note arguing the opposite.
+    """
     names = sorted(c.name for c in review.checks)
     if names != sorted(REQUIRED_CHECKS):
         raise LLMError(f"skeptic returned checks {names}, expected {sorted(REQUIRED_CHECKS)}")
-    verdict = "rejected" if any(c.result == "fail" for c in review.checks) else "kept"
-    return review.model_copy(update={"verdict": verdict})
+    expected = "rejected" if any(c.result == "fail" for c in review.checks) else "kept"
+    if review.verdict != expected:
+        raise LLMError(f"skeptic verdict {review.verdict!r} disagrees with its checks")
+    return review
 
 
 def review_brief(llm: LLM, model: str, brief: Brief, evidence: dict[str, Any]) -> SkepticReview:
-    review = llm.structured(model=model, system=SYSTEM, user=user_message(brief, evidence),
-                            output=SkepticReview, max_tokens=MAX_TOKENS)
-    return validate_checks(review)
+    """Review a brief, asking again (up to ATTEMPTS times) if the response is inconsistent."""
+    errors: list[LLMError] = []
+
+    def attempt() -> SkepticReview | None:
+        try:
+            return validate_checks(llm.structured(
+                model=model, system=SYSTEM, user=user_message(brief, evidence),
+                output=SkepticReview, max_tokens=MAX_TOKENS,
+            ))
+        except LLMError as exc:
+            errors.append(exc)
+            return None
+
+    # The generator is lazy, so attempts stop at the first valid review.
+    review = next((r for r in (attempt() for _ in range(ATTEMPTS)) if r is not None), None)
+    if review is None:
+        raise errors[-1]
+    return review

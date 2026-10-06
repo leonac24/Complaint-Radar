@@ -1,0 +1,1495 @@
+{
+ "results": [
+  {
+   "name": "Minnesota AG v. Brigit (earned wage advance fees)",
+   "public_date": "2026-06-10",
+   "as_of": "2026-05",
+   "cluster": "Payday loan, title loan, personal loan, or advance loan / Charged fees or interest you didn't expect",
+   "source_url": "https://natlawreview.com/article/minnesota-ag-sues-earned-wage-access-provider-over-alleged-payday-lending",
+   "found": true,
+   "rank": 51,
+   "clusters_ranked": 81,
+   "velocity": 1.0339,
+   "target_id": "7a2c34089b",
+   "headline": null,
+   "verdict": null,
+   "note": null,
+   "flagged": false,
+   "outcome": "Ranked 51 of 81 by velocity as of 2026-05, outside the top 25 that get briefs, so it was not flagged.",
+   "scope": [
+    {
+     "id": "8583950f85",
+     "product_family": "credit_reporting",
+     "velocity": 2.5223,
+     "recent_monthly_avg": 579.33
+    },
+    {
+     "id": "53d61fbc6a",
+     "product_family": "lending",
+     "velocity": 1.352,
+     "recent_monthly_avg": 164.0
+    },
+    {
+     "id": "67fdf2acdb",
+     "product_family": "lending",
+     "velocity": 1.3513,
+     "recent_monthly_avg": 313.0
+    },
+    {
+     "id": "923a286eef",
+     "product_family": "debt_collection",
+     "velocity": 1.343,
+     "recent_monthly_avg": 14140.0
+    },
+    {
+     "id": "c7273a8d0f",
+     "product_family": "lending",
+     "velocity": 1.3333,
+     "recent_monthly_avg": 140.33
+    },
+    {
+     "id": "74d7e18420",
+     "product_family": "lending",
+     "velocity": 1.3233,
+     "recent_monthly_avg": 360.0
+    },
+    {
+     "id": "7b6c0d1fff",
+     "product_family": "lending",
+     "velocity": 1.3195,
+     "recent_monthly_avg": 249.67
+    },
+    {
+     "id": "93f76c963b",
+     "product_family": "payments",
+     "velocity": 1.2946,
+     "recent_monthly_avg": 1093.67
+    },
+    {
+     "id": "bf73b381d7",
+     "product_family": "cards",
+     "velocity": 1.2847,
+     "recent_monthly_avg": 2800.33
+    },
+    {
+     "id": "e7596b5569",
+     "product_family": "other",
+     "velocity": 1.2581,
+     "recent_monthly_avg": 104.67
+    },
+    {
+     "id": "aeaa49baec",
+     "product_family": "payments",
+     "velocity": 1.2535,
+     "recent_monthly_avg": 613.0
+    },
+    {
+     "id": "eda21d9832",
+     "product_family": "lending",
+     "velocity": 1.2477,
+     "recent_monthly_avg": 783.33
+    },
+    {
+     "id": "048473e211",
+     "product_family": "credit_reporting",
+     "velocity": 1.2408,
+     "recent_monthly_avg": 102859.33
+    },
+    {
+     "id": "a773ecc471",
+     "product_family": "payments",
+     "velocity": 1.2308,
+     "recent_monthly_avg": 35.0
+    },
+    {
+     "id": "a927b4a897",
+     "product_family": "credit_reporting",
+     "velocity": 1.227,
+     "recent_monthly_avg": 121573.0
+    },
+    {
+     "id": "7463e1ec62",
+     "product_family": "lending",
+     "velocity": 1.2239,
+     "recent_monthly_avg": 104.33
+    },
+    {
+     "id": "19cace02be",
+     "product_family": "lending",
+     "velocity": 1.2238,
+     "recent_monthly_avg": 330.33
+    },
+    {
+     "id": "b10cff60c9",
+     "product_family": "credit_reporting",
+     "velocity": 1.214,
+     "recent_monthly_avg": 330419.0
+    },
+    {
+     "id": "b0b1cde406",
+     "product_family": "lending",
+     "velocity": 1.2088,
+     "recent_monthly_avg": 1429.67
+    },
+    {
+     "id": "0d8dde4ea9",
+     "product_family": "banking",
+     "velocity": 1.2041,
+     "recent_monthly_avg": 1145.33
+    },
+    {
+     "id": "b5cddfde3a",
+     "product_family": "lending",
+     "velocity": 1.2009,
+     "recent_monthly_avg": 1029.33
+    },
+    {
+     "id": "21a278d52e",
+     "product_family": "cards",
+     "velocity": 1.1992,
+     "recent_monthly_avg": 951.33
+    },
+    {
+     "id": "04220c2e9f",
+     "product_family": "lending",
+     "velocity": 1.1845,
+     "recent_monthly_avg": 41.0
+    },
+    {
+     "id": "ce77b3b525",
+     "product_family": "lending",
+     "velocity": 1.1784,
+     "recent_monthly_avg": 78.67
+    },
+    {
+     "id": "82826d916b",
+     "product_family": "cards",
+     "velocity": 1.1726,
+     "recent_monthly_avg": 360.67
+    },
+    {
+     "id": "c9010f0e6b",
+     "product_family": "other",
+     "velocity": 1.1701,
+     "recent_monthly_avg": 60.33
+    },
+    {
+     "id": "f91883a3dd",
+     "product_family": "lending",
+     "velocity": 1.165,
+     "recent_monthly_avg": 35.0
+    },
+    {
+     "id": "b85b327a01",
+     "product_family": "lending",
+     "velocity": 1.1622,
+     "recent_monthly_avg": 38.0
+    },
+    {
+     "id": "213f6fe8ff",
+     "product_family": "cards",
+     "velocity": 1.1566,
+     "recent_monthly_avg": 435.67
+    },
+    {
+     "id": "4de77f7790",
+     "product_family": "payments",
+     "velocity": 1.1538,
+     "recent_monthly_avg": 55.0
+    },
+    {
+     "id": "f4b8cec087",
+     "product_family": "banking",
+     "velocity": 1.1516,
+     "recent_monthly_avg": 4436.33
+    },
+    {
+     "id": "bb0adf9957",
+     "product_family": "lending",
+     "velocity": 1.1509,
+     "recent_monthly_avg": 118.33
+    },
+    {
+     "id": "c8a723e120",
+     "product_family": "lending",
+     "velocity": 1.1399,
+     "recent_monthly_avg": 235.33
+    },
+    {
+     "id": "f853293a87",
+     "product_family": "lending",
+     "velocity": 1.1362,
+     "recent_monthly_avg": 205.0
+    },
+    {
+     "id": "ea77fe6d1e",
+     "product_family": "payments",
+     "velocity": 1.1343,
+     "recent_monthly_avg": 196.33
+    },
+    {
+     "id": "1f8be44d16",
+     "product_family": "lending",
+     "velocity": 1.1327,
+     "recent_monthly_avg": 291.0
+    },
+    {
+     "id": "353f4d523a",
+     "product_family": "cards",
+     "velocity": 1.1287,
+     "recent_monthly_avg": 828.0
+    },
+    {
+     "id": "fe90aff7c0",
+     "product_family": "credit_reporting",
+     "velocity": 1.1171,
+     "recent_monthly_avg": 1575.67
+    },
+    {
+     "id": "a8e926112a",
+     "product_family": "cards",
+     "velocity": 1.1131,
+     "recent_monthly_avg": 313.33
+    },
+    {
+     "id": "aea969ab1e",
+     "product_family": "lending",
+     "velocity": 1.0986,
+     "recent_monthly_avg": 60.0
+    },
+    {
+     "id": "1c6b4b69b0",
+     "product_family": "payments",
+     "velocity": 1.0972,
+     "recent_monthly_avg": 243.33
+    },
+    {
+     "id": "a7a3385853",
+     "product_family": "lending",
+     "velocity": 1.0913,
+     "recent_monthly_avg": 82.67
+    },
+    {
+     "id": "b4b3899b7c",
+     "product_family": "other",
+     "velocity": 1.0894,
+     "recent_monthly_avg": 39.67
+    },
+    {
+     "id": "a4ba70edea",
+     "product_family": "payments",
+     "velocity": 1.0875,
+     "recent_monthly_avg": 185.67
+    },
+    {
+     "id": "837ae2f07c",
+     "product_family": "other",
+     "velocity": 1.0696,
+     "recent_monthly_avg": 43.67
+    },
+    {
+     "id": "f2b528566b",
+     "product_family": "lending",
+     "velocity": 1.0571,
+     "recent_monthly_avg": 628.0
+    },
+    {
+     "id": "560264905f",
+     "product_family": "banking",
+     "velocity": 1.0483,
+     "recent_monthly_avg": 414.67
+    },
+    {
+     "id": "6f0d0ea893",
+     "product_family": "other",
+     "velocity": 1.0459,
+     "recent_monthly_avg": 52.0
+    },
+    {
+     "id": "e4b6dca113",
+     "product_family": "lending",
+     "velocity": 1.0414,
+     "recent_monthly_avg": 104.0
+    },
+    {
+     "id": "f7aef7c46b",
+     "product_family": "cards",
+     "velocity": 1.0393,
+     "recent_monthly_avg": 118.33
+    },
+    {
+     "id": "7a2c34089b",
+     "product_family": "lending",
+     "velocity": 1.0339,
+     "recent_monthly_avg": 336.0
+    },
+    {
+     "id": "79c676fb05",
+     "product_family": "lending",
+     "velocity": 1.0303,
+     "recent_monthly_avg": 233.0
+    },
+    {
+     "id": "8308750123",
+     "product_family": "credit_reporting",
+     "velocity": 1.0109,
+     "recent_monthly_avg": 1779.67
+    },
+    {
+     "id": "7dc1e976ac",
+     "product_family": "lending",
+     "velocity": 1.0055,
+     "recent_monthly_avg": 147.0
+    },
+    {
+     "id": "6cc88a09ca",
+     "product_family": "payments",
+     "velocity": 1.001,
+     "recent_monthly_avg": 321.33
+    },
+    {
+     "id": "afd439c5dc",
+     "product_family": "credit_reporting",
+     "velocity": 1.0003,
+     "recent_monthly_avg": 595.33
+    },
+    {
+     "id": "73c2e60e5f",
+     "product_family": "debt_collection",
+     "velocity": 0.9996,
+     "recent_monthly_avg": 796.67
+    },
+    {
+     "id": "47e2bb7f9e",
+     "product_family": "payments",
+     "velocity": 0.9916,
+     "recent_monthly_avg": 73.33
+    },
+    {
+     "id": "e9ab3f3f82",
+     "product_family": "banking",
+     "velocity": 0.9894,
+     "recent_monthly_avg": 925.33
+    },
+    {
+     "id": "88d047e679",
+     "product_family": "debt_collection",
+     "velocity": 0.9853,
+     "recent_monthly_avg": 7182.67
+    },
+    {
+     "id": "a17dd60059",
+     "product_family": "cards",
+     "velocity": 0.9841,
+     "recent_monthly_avg": 912.67
+    },
+    {
+     "id": "9e0db7e00f",
+     "product_family": "lending",
+     "velocity": 0.9827,
+     "recent_monthly_avg": 554.67
+    },
+    {
+     "id": "0184626f45",
+     "product_family": "credit_reporting",
+     "velocity": 0.9767,
+     "recent_monthly_avg": 44.0
+    },
+    {
+     "id": "d0d8db1db8",
+     "product_family": "banking",
+     "velocity": 0.9753,
+     "recent_monthly_avg": 580.33
+    },
+    {
+     "id": "2d393ff7de",
+     "product_family": "lending",
+     "velocity": 0.9426,
+     "recent_monthly_avg": 33.33
+    },
+    {
+     "id": "e04eb4fc7c",
+     "product_family": "lending",
+     "velocity": 0.9388,
+     "recent_monthly_avg": 89.67
+    },
+    {
+     "id": "566d7411e0",
+     "product_family": "payments",
+     "velocity": 0.9333,
+     "recent_monthly_avg": 60.33
+    },
+    {
+     "id": "1ee3effde1",
+     "product_family": "cards",
+     "velocity": 0.9309,
+     "recent_monthly_avg": 513.33
+    },
+    {
+     "id": "a01da24ae6",
+     "product_family": "other",
+     "velocity": 0.9128,
+     "recent_monthly_avg": 85.67
+    },
+    {
+     "id": "399200f0ec",
+     "product_family": "payments",
+     "velocity": 0.9027,
+     "recent_monthly_avg": 80.0
+    },
+    {
+     "id": "1af2be180a",
+     "product_family": "payments",
+     "velocity": 0.8988,
+     "recent_monthly_avg": 45.33
+    },
+    {
+     "id": "75109e6e57",
+     "product_family": "debt_collection",
+     "velocity": 0.894,
+     "recent_monthly_avg": 2948.0
+    },
+    {
+     "id": "1916be6a71",
+     "product_family": "debt_collection",
+     "velocity": 0.8745,
+     "recent_monthly_avg": 193.67
+    },
+    {
+     "id": "1d2491481a",
+     "product_family": "debt_collection",
+     "velocity": 0.8465,
+     "recent_monthly_avg": 348.0
+    },
+    {
+     "id": "3dd88382df",
+     "product_family": "debt_collection",
+     "velocity": 0.8446,
+     "recent_monthly_avg": 4290.33
+    },
+    {
+     "id": "377ece35bb",
+     "product_family": "payments",
+     "velocity": 0.8245,
+     "recent_monthly_avg": 75.67
+    },
+    {
+     "id": "3b571bdac3",
+     "product_family": "cards",
+     "velocity": 0.7761,
+     "recent_monthly_avg": 47.0
+    },
+    {
+     "id": "46931fe513",
+     "product_family": "payments",
+     "velocity": 0.7418,
+     "recent_monthly_avg": 524.67
+    },
+    {
+     "id": "15bfeb10cd",
+     "product_family": "cards",
+     "velocity": 0.7271,
+     "recent_monthly_avg": 356.0
+    },
+    {
+     "id": "aad67745a7",
+     "product_family": "payments",
+     "velocity": 0.6973,
+     "recent_monthly_avg": 144.0
+    },
+    {
+     "id": "db18d50440",
+     "product_family": "cards",
+     "velocity": 0.4539,
+     "recent_monthly_avg": 488.33
+    }
+   ]
+  },
+  {
+   "name": "Colorado AG v. EarnIn (tips and expedited fees)",
+   "public_date": "2026-08-27",
+   "as_of": "2026-07",
+   "cluster": "Payday loan, title loan, personal loan, or advance loan / Charged fees or interest you didn't expect",
+   "source_url": "https://www.consumerfinancemonitor.com/2026/09/08/colorado-sues-earnin-alleging-its-earned-wage-access-product-is-really-a-high-cost-loan/",
+   "found": true,
+   "rank": 15,
+   "clusters_ranked": 79,
+   "velocity": 1.1153,
+   "target_id": "7a2c34089b",
+   "headline": "Unexpected fee and interest claims on small-dollar loans edge up, concentrated in a few lenders",
+   "verdict": "kept",
+   "note": "The signal passes all five checks: complaints are climbing steadily across lenders and states, with no templating, and the sample is large enough to support the disclosure-related hypothesis.",
+   "flagged": true,
+   "outcome": "Ranked 15 of 79 by velocity as of 2026-07; the skeptic kept the brief, so it was flagged.",
+   "scope": [
+    {
+     "id": "8583950f85",
+     "product_family": "credit_reporting",
+     "velocity": 2.0879,
+     "recent_monthly_avg": 699.67
+    },
+    {
+     "id": "129846b3db",
+     "product_family": "lending",
+     "velocity": 1.7368,
+     "recent_monthly_avg": 39.0
+    },
+    {
+     "id": "048473e211",
+     "product_family": "credit_reporting",
+     "velocity": 1.3256,
+     "recent_monthly_avg": 117202.67
+    },
+    {
+     "id": "7b6c0d1fff",
+     "product_family": "lending",
+     "velocity": 1.2902,
+     "recent_monthly_avg": 284.0
+    },
+    {
+     "id": "ea77fe6d1e",
+     "product_family": "payments",
+     "velocity": 1.2737,
+     "recent_monthly_avg": 239.33
+    },
+    {
+     "id": "b4b3899b7c",
+     "product_family": "other",
+     "velocity": 1.2167,
+     "recent_monthly_avg": 43.67
+    },
+    {
+     "id": "19cace02be",
+     "product_family": "lending",
+     "velocity": 1.2152,
+     "recent_monthly_avg": 363.0
+    },
+    {
+     "id": "eda21d9832",
+     "product_family": "lending",
+     "velocity": 1.2079,
+     "recent_monthly_avg": 865.67
+    },
+    {
+     "id": "c7273a8d0f",
+     "product_family": "lending",
+     "velocity": 1.2074,
+     "recent_monthly_avg": 146.33
+    },
+    {
+     "id": "e7596b5569",
+     "product_family": "other",
+     "velocity": 1.1993,
+     "recent_monthly_avg": 113.33
+    },
+    {
+     "id": "b10cff60c9",
+     "product_family": "credit_reporting",
+     "velocity": 1.1975,
+     "recent_monthly_avg": 348632.33
+    },
+    {
+     "id": "a4ba70edea",
+     "product_family": "payments",
+     "velocity": 1.1459,
+     "recent_monthly_avg": 207.0
+    },
+    {
+     "id": "bb0adf9957",
+     "product_family": "lending",
+     "velocity": 1.1213,
+     "recent_monthly_avg": 121.33
+    },
+    {
+     "id": "53d61fbc6a",
+     "product_family": "lending",
+     "velocity": 1.1172,
+     "recent_monthly_avg": 158.67
+    },
+    {
+     "id": "7a2c34089b",
+     "product_family": "lending",
+     "velocity": 1.1153,
+     "recent_monthly_avg": 377.0
+    },
+    {
+     "id": "c9010f0e6b",
+     "product_family": "other",
+     "velocity": 1.1138,
+     "recent_monthly_avg": 57.0
+    },
+    {
+     "id": "fe90aff7c0",
+     "product_family": "credit_reporting",
+     "velocity": 1.0949,
+     "recent_monthly_avg": 1573.67
+    },
+    {
+     "id": "82826d916b",
+     "product_family": "cards",
+     "velocity": 1.0943,
+     "recent_monthly_avg": 368.33
+    },
+    {
+     "id": "7dc1e976ac",
+     "product_family": "lending",
+     "velocity": 1.0938,
+     "recent_monthly_avg": 168.0
+    },
+    {
+     "id": "4de77f7790",
+     "product_family": "payments",
+     "velocity": 1.0826,
+     "recent_monthly_avg": 54.0
+    },
+    {
+     "id": "a8e926112a",
+     "product_family": "cards",
+     "velocity": 1.082,
+     "recent_monthly_avg": 322.67
+    },
+    {
+     "id": "21a278d52e",
+     "product_family": "cards",
+     "velocity": 1.0732,
+     "recent_monthly_avg": 938.0
+    },
+    {
+     "id": "b0b1cde406",
+     "product_family": "lending",
+     "velocity": 1.0627,
+     "recent_monthly_avg": 1424.33
+    },
+    {
+     "id": "f4b8cec087",
+     "product_family": "banking",
+     "velocity": 1.0585,
+     "recent_monthly_avg": 4438.67
+    },
+    {
+     "id": "8308750123",
+     "product_family": "credit_reporting",
+     "velocity": 1.0577,
+     "recent_monthly_avg": 1820.67
+    },
+    {
+     "id": "aeaa49baec",
+     "product_family": "payments",
+     "velocity": 1.0571,
+     "recent_monthly_avg": 587.67
+    },
+    {
+     "id": "0d8dde4ea9",
+     "product_family": "banking",
+     "velocity": 1.0559,
+     "recent_monthly_avg": 1119.0
+    },
+    {
+     "id": "a927b4a897",
+     "product_family": "credit_reporting",
+     "velocity": 1.0556,
+     "recent_monthly_avg": 112388.33
+    },
+    {
+     "id": "1f8be44d16",
+     "product_family": "lending",
+     "velocity": 1.0535,
+     "recent_monthly_avg": 284.0
+    },
+    {
+     "id": "e9ab3f3f82",
+     "product_family": "banking",
+     "velocity": 1.0518,
+     "recent_monthly_avg": 1002.67
+    },
+    {
+     "id": "6f0d0ea893",
+     "product_family": "other",
+     "velocity": 1.0456,
+     "recent_monthly_avg": 52.33
+    },
+    {
+     "id": "bf73b381d7",
+     "product_family": "cards",
+     "velocity": 1.0343,
+     "recent_monthly_avg": 2648.33
+    },
+    {
+     "id": "93f76c963b",
+     "product_family": "payments",
+     "velocity": 1.0342,
+     "recent_monthly_avg": 993.67
+    },
+    {
+     "id": "1ee3effde1",
+     "product_family": "cards",
+     "velocity": 1.0339,
+     "recent_monthly_avg": 554.67
+    },
+    {
+     "id": "6cc88a09ca",
+     "product_family": "payments",
+     "velocity": 1.0312,
+     "recent_monthly_avg": 347.0
+    },
+    {
+     "id": "afd439c5dc",
+     "product_family": "credit_reporting",
+     "velocity": 1.0292,
+     "recent_monthly_avg": 593.33
+    },
+    {
+     "id": "b5cddfde3a",
+     "product_family": "lending",
+     "velocity": 1.0158,
+     "recent_monthly_avg": 989.0
+    },
+    {
+     "id": "d0d8db1db8",
+     "product_family": "banking",
+     "velocity": 1.0134,
+     "recent_monthly_avg": 612.67
+    },
+    {
+     "id": "1c6b4b69b0",
+     "product_family": "payments",
+     "velocity": 1.0035,
+     "recent_monthly_avg": 233.33
+    },
+    {
+     "id": "213f6fe8ff",
+     "product_family": "cards",
+     "velocity": 1.0008,
+     "recent_monthly_avg": 410.67
+    },
+    {
+     "id": "2d393ff7de",
+     "product_family": "lending",
+     "velocity": 1.0,
+     "recent_monthly_avg": 35.0
+    },
+    {
+     "id": "353f4d523a",
+     "product_family": "cards",
+     "velocity": 0.9908,
+     "recent_monthly_avg": 821.67
+    },
+    {
+     "id": "1916be6a71",
+     "product_family": "debt_collection",
+     "velocity": 0.9901,
+     "recent_monthly_avg": 211.67
+    },
+    {
+     "id": "74d7e18420",
+     "product_family": "lending",
+     "velocity": 0.9813,
+     "recent_monthly_avg": 319.33
+    },
+    {
+     "id": "47e2bb7f9e",
+     "product_family": "payments",
+     "velocity": 0.9799,
+     "recent_monthly_avg": 76.33
+    },
+    {
+     "id": "923a286eef",
+     "product_family": "debt_collection",
+     "velocity": 0.9797,
+     "recent_monthly_avg": 12001.0
+    },
+    {
+     "id": "399200f0ec",
+     "product_family": "payments",
+     "velocity": 0.9792,
+     "recent_monthly_avg": 81.33
+    },
+    {
+     "id": "377ece35bb",
+     "product_family": "payments",
+     "velocity": 0.9666,
+     "recent_monthly_avg": 86.67
+    },
+    {
+     "id": "c8a723e120",
+     "product_family": "lending",
+     "velocity": 0.9652,
+     "recent_monthly_avg": 221.67
+    },
+    {
+     "id": "46931fe513",
+     "product_family": "payments",
+     "velocity": 0.9629,
+     "recent_monthly_avg": 484.33
+    },
+    {
+     "id": "ce77b3b525",
+     "product_family": "lending",
+     "velocity": 0.9623,
+     "recent_monthly_avg": 71.67
+    },
+    {
+     "id": "0184626f45",
+     "product_family": "credit_reporting",
+     "velocity": 0.9586,
+     "recent_monthly_avg": 41.33
+    },
+    {
+     "id": "a17dd60059",
+     "product_family": "cards",
+     "velocity": 0.9556,
+     "recent_monthly_avg": 898.0
+    },
+    {
+     "id": "e04eb4fc7c",
+     "product_family": "lending",
+     "velocity": 0.9542,
+     "recent_monthly_avg": 92.33
+    },
+    {
+     "id": "f2b528566b",
+     "product_family": "lending",
+     "velocity": 0.9238,
+     "recent_monthly_avg": 601.0
+    },
+    {
+     "id": "e4b6dca113",
+     "product_family": "lending",
+     "velocity": 0.919,
+     "recent_monthly_avg": 93.33
+    },
+    {
+     "id": "1d2491481a",
+     "product_family": "debt_collection",
+     "velocity": 0.9118,
+     "recent_monthly_avg": 370.67
+    },
+    {
+     "id": "73c2e60e5f",
+     "product_family": "debt_collection",
+     "velocity": 0.9108,
+     "recent_monthly_avg": 734.0
+    },
+    {
+     "id": "560264905f",
+     "product_family": "banking",
+     "velocity": 0.908,
+     "recent_monthly_avg": 381.33
+    },
+    {
+     "id": "3dd88382df",
+     "product_family": "debt_collection",
+     "velocity": 0.904,
+     "recent_monthly_avg": 4102.0
+    },
+    {
+     "id": "566d7411e0",
+     "product_family": "payments",
+     "velocity": 0.8952,
+     "recent_monthly_avg": 57.67
+    },
+    {
+     "id": "67fdf2acdb",
+     "product_family": "lending",
+     "velocity": 0.8934,
+     "recent_monthly_avg": 253.33
+    },
+    {
+     "id": "79c676fb05",
+     "product_family": "lending",
+     "velocity": 0.8841,
+     "recent_monthly_avg": 206.0
+    },
+    {
+     "id": "9e0db7e00f",
+     "product_family": "lending",
+     "velocity": 0.8808,
+     "recent_monthly_avg": 517.0
+    },
+    {
+     "id": "88d047e679",
+     "product_family": "debt_collection",
+     "velocity": 0.873,
+     "recent_monthly_avg": 6863.67
+    },
+    {
+     "id": "aea969ab1e",
+     "product_family": "lending",
+     "velocity": 0.8535,
+     "recent_monthly_avg": 51.33
+    },
+    {
+     "id": "a7a3385853",
+     "product_family": "lending",
+     "velocity": 0.8522,
+     "recent_monthly_avg": 69.0
+    },
+    {
+     "id": "aad67745a7",
+     "product_family": "payments",
+     "velocity": 0.8482,
+     "recent_monthly_avg": 158.0
+    },
+    {
+     "id": "04220c2e9f",
+     "product_family": "lending",
+     "velocity": 0.8462,
+     "recent_monthly_avg": 35.33
+    },
+    {
+     "id": "f853293a87",
+     "product_family": "lending",
+     "velocity": 0.8456,
+     "recent_monthly_avg": 175.67
+    },
+    {
+     "id": "f7aef7c46b",
+     "product_family": "cards",
+     "velocity": 0.8415,
+     "recent_monthly_avg": 100.33
+    },
+    {
+     "id": "15bfeb10cd",
+     "product_family": "cards",
+     "velocity": 0.8221,
+     "recent_monthly_avg": 273.0
+    },
+    {
+     "id": "837ae2f07c",
+     "product_family": "other",
+     "velocity": 0.8208,
+     "recent_monthly_avg": 37.0
+    },
+    {
+     "id": "a01da24ae6",
+     "product_family": "other",
+     "velocity": 0.8094,
+     "recent_monthly_avg": 75.67
+    },
+    {
+     "id": "1af2be180a",
+     "product_family": "payments",
+     "velocity": 0.7988,
+     "recent_monthly_avg": 39.33
+    },
+    {
+     "id": "75109e6e57",
+     "product_family": "debt_collection",
+     "velocity": 0.7965,
+     "recent_monthly_avg": 2473.33
+    },
+    {
+     "id": "7463e1ec62",
+     "product_family": "lending",
+     "velocity": 0.7692,
+     "recent_monthly_avg": 78.33
+    },
+    {
+     "id": "3b571bdac3",
+     "product_family": "cards",
+     "velocity": 0.701,
+     "recent_monthly_avg": 40.33
+    },
+    {
+     "id": "db18d50440",
+     "product_family": "cards",
+     "velocity": 0.5667,
+     "recent_monthly_avg": 396.33
+    }
+   ]
+  },
+  {
+   "name": "41 state AGs v. Credit Acceptance (unaffordable auto loans)",
+   "public_date": "2026-09-17",
+   "as_of": "2026-08",
+   "cluster": "Vehicle loan or lease / Repossession",
+   "source_url": "https://www.ag.state.mn.us/Office/Communications/2026/09/17_Credit-Acceptance-Corp.asp",
+   "found": true,
+   "rank": 52,
+   "clusters_ranked": 79,
+   "velocity": 0.9055,
+   "target_id": "9e0db7e00f",
+   "headline": null,
+   "verdict": null,
+   "note": null,
+   "flagged": false,
+   "outcome": "Ranked 52 of 79 by velocity as of 2026-08, outside the top 25 that get briefs, so it was not flagged.",
+   "scope": [
+    {
+     "id": "129846b3db",
+     "product_family": "lending",
+     "velocity": 1.7683,
+     "recent_monthly_avg": 43.33
+    },
+    {
+     "id": "8583950f85",
+     "product_family": "credit_reporting",
+     "velocity": 1.3534,
+     "recent_monthly_avg": 565.67
+    },
+    {
+     "id": "048473e211",
+     "product_family": "credit_reporting",
+     "velocity": 1.323,
+     "recent_monthly_avg": 122617.0
+    },
+    {
+     "id": "ea77fe6d1e",
+     "product_family": "payments",
+     "velocity": 1.2624,
+     "recent_monthly_avg": 246.0
+    },
+    {
+     "id": "7b6c0d1fff",
+     "product_family": "lending",
+     "velocity": 1.2291,
+     "recent_monthly_avg": 296.33
+    },
+    {
+     "id": "eda21d9832",
+     "product_family": "lending",
+     "velocity": 1.1953,
+     "recent_monthly_avg": 900.67
+    },
+    {
+     "id": "b10cff60c9",
+     "product_family": "credit_reporting",
+     "velocity": 1.1948,
+     "recent_monthly_avg": 360976.33
+    },
+    {
+     "id": "19cace02be",
+     "product_family": "lending",
+     "velocity": 1.1725,
+     "recent_monthly_avg": 367.67
+    },
+    {
+     "id": "fe90aff7c0",
+     "product_family": "credit_reporting",
+     "velocity": 1.1461,
+     "recent_monthly_avg": 1710.0
+    },
+    {
+     "id": "c7273a8d0f",
+     "product_family": "lending",
+     "velocity": 1.1443,
+     "recent_monthly_avg": 149.67
+    },
+    {
+     "id": "e7596b5569",
+     "product_family": "other",
+     "velocity": 1.141,
+     "recent_monthly_avg": 111.0
+    },
+    {
+     "id": "7a2c34089b",
+     "product_family": "lending",
+     "velocity": 1.1385,
+     "recent_monthly_avg": 389.67
+    },
+    {
+     "id": "53d61fbc6a",
+     "product_family": "lending",
+     "velocity": 1.1338,
+     "recent_monthly_avg": 173.0
+    },
+    {
+     "id": "7dc1e976ac",
+     "product_family": "lending",
+     "velocity": 1.1304,
+     "recent_monthly_avg": 172.67
+    },
+    {
+     "id": "a8e926112a",
+     "product_family": "cards",
+     "velocity": 1.0893,
+     "recent_monthly_avg": 334.67
+    },
+    {
+     "id": "82826d916b",
+     "product_family": "cards",
+     "velocity": 1.08,
+     "recent_monthly_avg": 382.0
+    },
+    {
+     "id": "e9ab3f3f82",
+     "product_family": "banking",
+     "velocity": 1.0679,
+     "recent_monthly_avg": 1027.33
+    },
+    {
+     "id": "1916be6a71",
+     "product_family": "debt_collection",
+     "velocity": 1.0609,
+     "recent_monthly_avg": 224.33
+    },
+    {
+     "id": "afd439c5dc",
+     "product_family": "credit_reporting",
+     "velocity": 1.0559,
+     "recent_monthly_avg": 640.0
+    },
+    {
+     "id": "a4ba70edea",
+     "product_family": "payments",
+     "velocity": 1.0552,
+     "recent_monthly_avg": 202.0
+    },
+    {
+     "id": "f4b8cec087",
+     "product_family": "banking",
+     "velocity": 1.05,
+     "recent_monthly_avg": 4545.33
+    },
+    {
+     "id": "bb0adf9957",
+     "product_family": "lending",
+     "velocity": 1.0484,
+     "recent_monthly_avg": 117.67
+    },
+    {
+     "id": "4de77f7790",
+     "product_family": "payments",
+     "velocity": 1.0453,
+     "recent_monthly_avg": 52.67
+    },
+    {
+     "id": "1ee3effde1",
+     "product_family": "cards",
+     "velocity": 1.0451,
+     "recent_monthly_avg": 558.67
+    },
+    {
+     "id": "e04eb4fc7c",
+     "product_family": "lending",
+     "velocity": 1.038,
+     "recent_monthly_avg": 99.67
+    },
+    {
+     "id": "6cc88a09ca",
+     "product_family": "payments",
+     "velocity": 1.0379,
+     "recent_monthly_avg": 356.0
+    },
+    {
+     "id": "21a278d52e",
+     "product_family": "cards",
+     "velocity": 1.0366,
+     "recent_monthly_avg": 948.0
+    },
+    {
+     "id": "399200f0ec",
+     "product_family": "payments",
+     "velocity": 1.0351,
+     "recent_monthly_avg": 88.33
+    },
+    {
+     "id": "b0b1cde406",
+     "product_family": "lending",
+     "velocity": 1.0226,
+     "recent_monthly_avg": 1413.33
+    },
+    {
+     "id": "a927b4a897",
+     "product_family": "credit_reporting",
+     "velocity": 1.0222,
+     "recent_monthly_avg": 112840.67
+    },
+    {
+     "id": "d0d8db1db8",
+     "product_family": "banking",
+     "velocity": 1.0158,
+     "recent_monthly_avg": 618.0
+    },
+    {
+     "id": "353f4d523a",
+     "product_family": "cards",
+     "velocity": 1.0143,
+     "recent_monthly_avg": 857.67
+    },
+    {
+     "id": "aeaa49baec",
+     "product_family": "payments",
+     "velocity": 1.007,
+     "recent_monthly_avg": 590.67
+    },
+    {
+     "id": "377ece35bb",
+     "product_family": "payments",
+     "velocity": 1.0036,
+     "recent_monthly_avg": 88.67
+    },
+    {
+     "id": "1c6b4b69b0",
+     "product_family": "payments",
+     "velocity": 0.9993,
+     "recent_monthly_avg": 237.67
+    },
+    {
+     "id": "0d8dde4ea9",
+     "product_family": "banking",
+     "velocity": 0.9905,
+     "recent_monthly_avg": 1084.0
+    },
+    {
+     "id": "b5cddfde3a",
+     "product_family": "lending",
+     "velocity": 0.99,
+     "recent_monthly_avg": 998.67
+    },
+    {
+     "id": "8308750123",
+     "product_family": "credit_reporting",
+     "velocity": 0.9854,
+     "recent_monthly_avg": 1794.0
+    },
+    {
+     "id": "bf73b381d7",
+     "product_family": "cards",
+     "velocity": 0.9854,
+     "recent_monthly_avg": 2663.33
+    },
+    {
+     "id": "0184626f45",
+     "product_family": "credit_reporting",
+     "velocity": 0.963,
+     "recent_monthly_avg": 42.67
+    },
+    {
+     "id": "f7aef7c46b",
+     "product_family": "cards",
+     "velocity": 0.9587,
+     "recent_monthly_avg": 111.0
+    },
+    {
+     "id": "213f6fe8ff",
+     "product_family": "cards",
+     "velocity": 0.9517,
+     "recent_monthly_avg": 399.33
+    },
+    {
+     "id": "1d2491481a",
+     "product_family": "debt_collection",
+     "velocity": 0.9444,
+     "recent_monthly_avg": 377.0
+    },
+    {
+     "id": "560264905f",
+     "product_family": "banking",
+     "velocity": 0.9409,
+     "recent_monthly_avg": 398.33
+    },
+    {
+     "id": "46931fe513",
+     "product_family": "payments",
+     "velocity": 0.9397,
+     "recent_monthly_avg": 480.33
+    },
+    {
+     "id": "a17dd60059",
+     "product_family": "cards",
+     "velocity": 0.9393,
+     "recent_monthly_avg": 897.0
+    },
+    {
+     "id": "93f76c963b",
+     "product_family": "payments",
+     "velocity": 0.938,
+     "recent_monthly_avg": 935.33
+    },
+    {
+     "id": "b4b3899b7c",
+     "product_family": "other",
+     "velocity": 0.9297,
+     "recent_monthly_avg": 34.67
+    },
+    {
+     "id": "f2b528566b",
+     "product_family": "lending",
+     "velocity": 0.928,
+     "recent_monthly_avg": 609.0
+    },
+    {
+     "id": "c8a723e120",
+     "product_family": "lending",
+     "velocity": 0.9197,
+     "recent_monthly_avg": 212.67
+    },
+    {
+     "id": "1af2be180a",
+     "product_family": "payments",
+     "velocity": 0.9148,
+     "recent_monthly_avg": 43.33
+    },
+    {
+     "id": "9e0db7e00f",
+     "product_family": "lending",
+     "velocity": 0.9055,
+     "recent_monthly_avg": 520.67
+    },
+    {
+     "id": "566d7411e0",
+     "product_family": "payments",
+     "velocity": 0.9043,
+     "recent_monthly_avg": 58.0
+    },
+    {
+     "id": "c9010f0e6b",
+     "product_family": "other",
+     "velocity": 0.9025,
+     "recent_monthly_avg": 49.0
+    },
+    {
+     "id": "74d7e18420",
+     "product_family": "lending",
+     "velocity": 0.8941,
+     "recent_monthly_avg": 306.0
+    },
+    {
+     "id": "04220c2e9f",
+     "product_family": "lending",
+     "velocity": 0.8881,
+     "recent_monthly_avg": 37.33
+    },
+    {
+     "id": "3dd88382df",
+     "product_family": "debt_collection",
+     "velocity": 0.8858,
+     "recent_monthly_avg": 3971.33
+    },
+    {
+     "id": "aad67745a7",
+     "product_family": "payments",
+     "velocity": 0.8857,
+     "recent_monthly_avg": 159.0
+    },
+    {
+     "id": "2d393ff7de",
+     "product_family": "lending",
+     "velocity": 0.8852,
+     "recent_monthly_avg": 31.0
+    },
+    {
+     "id": "47e2bb7f9e",
+     "product_family": "payments",
+     "velocity": 0.8845,
+     "recent_monthly_avg": 69.0
+    },
+    {
+     "id": "6f0d0ea893",
+     "product_family": "other",
+     "velocity": 0.8793,
+     "recent_monthly_avg": 46.0
+    },
+    {
+     "id": "1f8be44d16",
+     "product_family": "lending",
+     "velocity": 0.8787,
+     "recent_monthly_avg": 249.67
+    },
+    {
+     "id": "923a286eef",
+     "product_family": "debt_collection",
+     "velocity": 0.87,
+     "recent_monthly_avg": 11141.0
+    },
+    {
+     "id": "a01da24ae6",
+     "product_family": "other",
+     "velocity": 0.8625,
+     "recent_monthly_avg": 78.67
+    },
+    {
+     "id": "79c676fb05",
+     "product_family": "lending",
+     "velocity": 0.8481,
+     "recent_monthly_avg": 197.0
+    },
+    {
+     "id": "ce77b3b525",
+     "product_family": "lending",
+     "velocity": 0.8451,
+     "recent_monthly_avg": 65.0
+    },
+    {
+     "id": "73c2e60e5f",
+     "product_family": "debt_collection",
+     "velocity": 0.8425,
+     "recent_monthly_avg": 680.33
+    },
+    {
+     "id": "e4b6dca113",
+     "product_family": "lending",
+     "velocity": 0.8401,
+     "recent_monthly_avg": 88.67
+    },
+    {
+     "id": "7463e1ec62",
+     "product_family": "lending",
+     "velocity": 0.8277,
+     "recent_monthly_avg": 84.67
+    },
+    {
+     "id": "837ae2f07c",
+     "product_family": "other",
+     "velocity": 0.8094,
+     "recent_monthly_avg": 35.33
+    },
+    {
+     "id": "f853293a87",
+     "product_family": "lending",
+     "velocity": 0.7911,
+     "recent_monthly_avg": 167.33
+    },
+    {
+     "id": "3b571bdac3",
+     "product_family": "cards",
+     "velocity": 0.7857,
+     "recent_monthly_avg": 42.67
+    },
+    {
+     "id": "75109e6e57",
+     "product_family": "debt_collection",
+     "velocity": 0.7584,
+     "recent_monthly_avg": 2291.67
+    },
+    {
+     "id": "67fdf2acdb",
+     "product_family": "lending",
+     "velocity": 0.7335,
+     "recent_monthly_avg": 217.0
+    },
+    {
+     "id": "aea969ab1e",
+     "product_family": "lending",
+     "velocity": 0.7328,
+     "recent_monthly_avg": 43.0
+    },
+    {
+     "id": "88d047e679",
+     "product_family": "debt_collection",
+     "velocity": 0.7075,
+     "recent_monthly_avg": 5539.67
+    },
+    {
+     "id": "a7a3385853",
+     "product_family": "lending",
+     "velocity": 0.6422,
+     "recent_monthly_avg": 53.33
+    },
+    {
+     "id": "db18d50440",
+     "product_family": "cards",
+     "velocity": 0.6368,
+     "recent_monthly_avg": 393.33
+    },
+    {
+     "id": "15bfeb10cd",
+     "product_family": "cards",
+     "velocity": 0.6152,
+     "recent_monthly_avg": 214.33
+    }
+   ]
+  }
+ ]
+}

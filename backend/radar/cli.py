@@ -382,6 +382,7 @@ def cmd_evaluate(args: argparse.Namespace, settings: Settings) -> None:
         generated_at=datetime.now(UTC).isoformat(timespec="seconds"),
         extraction=score if score.rated else None,
         extraction_status=status,
+        extraction_reviewer=args.reviewer or (previous.extraction_reviewer if previous else None),
         skeptic=stats,
         stability=stable,
     )
@@ -442,6 +443,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     p = sub.add_parser("evaluate", help="review sheet, skeptic stats, theme stability")
     p.add_argument("--stability", action="store_true", help="rerun themes twice on one cluster (2 calls)")
+    p.add_argument("--reviewer", help='who rated the review sheet, shown with the result')
     p.add_argument("--yes", action="store_true", help="skip the spend confirmation")
     p.set_defaults(func=cmd_evaluate)
 

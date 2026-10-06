@@ -226,6 +226,7 @@ export interface Evaluation {
   generated_at: string;
   extraction: ExtractionScore | null;
   extraction_status: string;
+  extraction_reviewer: string | null;
   skeptic: { kept: number; rejected: number; failed_checks: Record<string, number> } | null;
   stability: StabilityResult | null;
 }

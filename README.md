@@ -33,8 +33,8 @@ signals, never as findings of wrongdoing.
 | 3. AI layer: extract, themes, analyst, skeptic | Done, run on real data |
 | 4. Export and API | Done |
 | 5. Frontend radar | Done |
-| 6. Bank lens, backtests, method page | Done; backtests need real cases (see below) |
-| 7. Evaluation | Done; extraction ratings pending a human reviewer |
+| 6. Bank lens, backtests, method page | Done |
+| 7. Evaluation | Done (extractions rated by Claude, not a person) |
 | 8. Polish, screenshots, demo recording | Screenshots and demo script done; recording and deploy pending |
 
 ## How it works
@@ -120,15 +120,31 @@ is 0.50, because the runs phrase the same theme differently ("after payoff or cl
 vs. "after payoff or account closure"). The fifth theme differed: one run split out
 data-security concerns, the other stop-payment orders.
 
-**Extraction accuracy.** Not rated yet. `python -m radar.cli evaluate` wrote 50 random
-extractions next to their narratives in `data/work/review_sheet.csv`; a person rates
-each one accurate, partially, or wrong, and rerunning `evaluate` scores the sheet.
+**Extraction accuracy: 88% accurate, 100% accurate or partially (50 of 50 rated).**
+The 50 random extractions in `data/work/review_sheet.csv` were rated against their
+narratives by Claude Opus 5.5 during development, **not by a person**, so treat this
+as a second-model check rather than human ground truth. No extraction was wrong.
+The six partial ratings were real but limited errors: a summary calling a
+buy-now-pay-later provider "a credit card issuer", two summaries adding a detail the
+narrative does not state, one garbled summary, one false "templated" flag, and one
+misframed root cause. Each has a note in the sheet. Very long narratives were judged
+on their first ~2,200 characters.
 
-**Backtests.** The replay machinery is built and tested, but no cases have been run:
-cases must be real, verified public events added to
-`backend/radar/backtest_cases.yaml`. One thing a replay already shows: the payday
-"can't stop withdrawals" cluster stayed below the 30-a-month volume floor until June
-2026, so the radar could not have seen it in March to May.
+**Backtests: 1 of 3 cases flagged.** The CFPB took no institutional enforcement actions
+in 2026, so the cases are state actions, researched from public sources (links in
+`backend/radar/backtest_cases.yaml`). Each cluster was chosen from the allegations
+before the replay ran.
+
+| Case | Public | Replay as of | Result |
+|---|---|---|---|
+| Colorado AG v. EarnIn (tips and expedited fees) | Aug 27, 2026 | Jul 2026 | **Flagged**: payday/advance "fees you didn't expect" ranked 15 of 79; skeptic kept the brief |
+| Minnesota AG v. Brigit (advance fees) | Jun 10, 2026 | May 2026 | **Missed**: the same cluster ranked 51 of 81, outside the briefed top 25 |
+| 41 state AGs v. Credit Acceptance (auto loans) | Sep 17, 2026 | Aug 2026 | **Missed**: vehicle "Repossession" ranked 52 of 79 |
+
+Three cases are too few to measure a hit rate; they show the replay working and the
+misses reported as plainly as the hit. Baltimore v. Dave (Dec 30, 2025) was left out
+because replaying it needs data from before the loaded window. The payday "can't stop
+withdrawals" cluster also stayed below the 30-a-month volume floor until June 2026.
 
 ## Running it
 
@@ -237,10 +253,12 @@ public_data/       precomputed JSON for the deployed demo
 6. **Back on the payday brief, select Dave Operating** under top companies. The bank
    lens shows lift 26 against peers, and its own complaints rising 2.4x against 1.3x
    for everyone else in the cluster.
-7. **Backtests page.** State plainly what it shows: no verified cases have been run
-   yet, and the payday cluster sat below the volume floor until June.
+7. **Backtests page.** One hit and two misses, stated plainly: the radar flagged the
+   advance-fee cluster a month before Colorado sued EarnIn, but missed the Brigit and
+   Credit Acceptance cases.
 8. **Close on the Method page**: the pipeline and model ids, 15 kept and 10 rejected,
-   90% theme stability across reruns, and the limitations.
+   88% extraction accuracy (rated by Claude, not a person), 90% theme stability, and
+   the limitations.
 
 ## Data source
 

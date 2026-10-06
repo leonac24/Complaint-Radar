@@ -142,7 +142,10 @@ function EvaluationResults({ evaluation }: { evaluation: Evaluation }) {
   const { extraction, stability } = evaluation;
   return (
     <>
-      <div className={styles.label}>Extraction accuracy (human review of 50 random extractions)</div>
+      <div className={styles.label}>
+        Extraction accuracy (50 random extractions rated against their narratives
+        {evaluation.extraction_reviewer ? ` by ${evaluation.extraction_reviewer}` : ""})
+      </div>
       {extraction && extraction.accuracy !== null ? (
         <div className={styles.bigNumbers}>
           <div><div className={styles.big}>{percent(extraction.accuracy)}</div><div className={styles.muted}>accurate</div></div>
@@ -153,7 +156,7 @@ function EvaluationResults({ evaluation }: { evaluation: Evaluation }) {
           <div><div className={styles.big}>{extraction.wrong}</div><div className={styles.muted}>wrong of {extraction.rated} rated</div></div>
         </div>
       ) : (
-        <div className={styles.empty}>Not rated yet. A person rates the review sheet; the result appears here.</div>
+        <div className={styles.empty}>Not rated yet. Rate the review sheet and the result appears here.</div>
       )}
       <div className={styles.label}>Theme stability (themes run twice on one cluster)</div>
       {stability ? (

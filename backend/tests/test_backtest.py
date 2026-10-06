@@ -73,9 +73,11 @@ def test_outside_briefed_cut_is_a_miss(complaints: pd.DataFrame, monkeypatch) ->
     assert llm.calls == []
 
 
-def test_cases_file_ships_with_no_active_cases() -> None:
-    assert backtest.load_cases() == []
-    assert "Example" in backtest.CASES_PATH.read_text()
+def test_shipped_cases_are_complete_and_sourced() -> None:
+    for c in backtest.load_cases():
+        assert c.source_url.startswith("https://")
+        assert c.as_of < c.public_date[:7]  # the replay only sees data before the event
+        assert " / " in c.cluster
 
 
 def test_load_cases_reads_yaml(tmp_path: Path) -> None:

@@ -343,5 +343,7 @@ class Evaluation(BaseModel):
     generated_at: str
     extraction: ExtractionScore | None
     extraction_status: str
+    # Who rated the review sheet, e.g. "a person" or "Claude Opus 5.5 (not a person)".
+    extraction_reviewer: str | None = None
     skeptic: SkepticStats | None
     stability: StabilityResult | None

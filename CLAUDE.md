@@ -408,6 +408,11 @@ Verify each milestone, then summarize what was done and anything the user must d
   `export` publishes it and `evaluation.json` when present.
 - Finding: the payday "can't stop withdrawals" cluster was below the 30/mo volume floor
   until June 2026, so an as-of replay for March to May would not see it.
+- At the user's request (2026-10-05) Claude rated the extraction review sheet and
+  researched the backtest cases. The rating is labelled "Claude Opus 5.5, not a person"
+  wherever it appears (`evaluate --reviewer`). Cases are real state actions with source
+  links, clusters chosen from the allegations before the replay; the CFPB itself took
+  no institutional enforcement actions in 2026. Result: 1 of 3 flagged.
 - `ingest` keeps the `EXPORTS` dict (keyed by covered months) and `COLUMNS`/`snake()`
   matching from `data_spike/spike.py`; `--exports` accepts `recent`, `all`, or
   comma-separated keys. Dedupe prefers the copy of a complaint that has a narrative.

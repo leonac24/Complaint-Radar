@@ -15,3 +15,32 @@
 #   as_of: "2026-04"
 #   cluster: "Payday loan, title loan, personal loan, or advance loan / Can't stop withdrawals from your bank account"
 #   source_url: "https://www.consumerfinance.gov/enforcement/actions/..."
+
+# Cases below were researched by Claude (Opus 5.5) on 2026-10-05 from public sources and
+# should be checked by a person. The CFPB itself took no institutional enforcement
+# actions in 2026, so these are state actions. Each cluster was chosen from the
+# allegations before the replay was run, so the choice could not be tuned to the result.
+# Not included: Baltimore v. Dave (announced 2025-12-30) needs data before Dec 2025.
+
+# MN AG: Brigit charged express-delivery and subscription fees making APRs of 300-700%.
+- name: "Minnesota AG v. Brigit (earned wage advance fees)"
+  public_date: "2026-06-10"
+  as_of: "2026-05"
+  cluster: "Payday loan, title loan, personal loan, or advance loan / Charged fees or interest you didn't expect"
+  source_url: "https://natlawreview.com/article/minnesota-ag-sues-earned-wage-access-provider-over-alleged-payday-lending"
+
+# CO AG: EarnIn's tips and expedited-transfer fees averaged a 388% APR; app design
+# allegedly pushed consumers to pay tips.
+- name: "Colorado AG v. EarnIn (tips and expedited fees)"
+  public_date: "2026-08-27"
+  as_of: "2026-07"
+  cluster: "Payday loan, title loan, personal loan, or advance loan / Charged fees or interest you didn't expect"
+  source_url: "https://www.consumerfinancemonitor.com/2026/09/08/colorado-sues-earnin-alleging-its-earned-wage-access-product-is-really-a-high-cost-loan/"
+
+# 41 state AGs: Credit Acceptance made auto loans it predicted borrowers could not repay
+# and profited from repeated repossession and resale.
+- name: "41 state AGs v. Credit Acceptance (unaffordable auto loans)"
+  public_date: "2026-09-17"
+  as_of: "2026-08"
+  cluster: "Vehicle loan or lease / Repossession"
+  source_url: "https://www.ag.state.mn.us/Office/Communications/2026/09/17_Credit-Acceptance-Corp.asp"

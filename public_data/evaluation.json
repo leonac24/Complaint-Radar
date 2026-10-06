@@ -1,7 +1,16 @@
 {
- "generated_at": "2026-10-06T00:18:51+00:00",
- "extraction": null,
- "extraction_status": "not rated yet: fill the rating column in data/work/review_sheet.csv",
+ "generated_at": "2026-10-06T01:32:24+00:00",
+ "extraction": {
+  "total": 50,
+  "rated": 50,
+  "accurate": 44,
+  "partially": 6,
+  "wrong": 0,
+  "accuracy": 0.88,
+  "accurate_or_partial": 1.0
+ },
+ "extraction_status": "50 of 50 rated",
+ "extraction_reviewer": "Claude Opus 5.5, not a person",
  "skeptic": {
   "kept": 15,
   "rejected": 10,

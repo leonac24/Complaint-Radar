@@ -1,5 +1,7 @@
 # Complaint Radar
 
+**Live demo: https://complaint-radar-leonac24s-projects.vercel.app**
+
 An early-warning radar for consumer finance risk. Complaint Radar reads real consumer
 complaints about financial companies, finds issues that are accelerating before they
 become regulatory or reputational problems, explains the likely root cause, and has a
@@ -35,7 +37,7 @@ signals, never as findings of wrongdoing.
 | 5. Frontend radar | Done |
 | 6. Bank lens, backtests, method page | Done |
 | 7. Evaluation | Done (extractions rated by Claude, not a person) |
-| 8. Polish, screenshots, demo recording | Screenshots and demo script done; recording and deploy pending |
+| 8. Polish, screenshots, demo recording | Deployed; demo recording pending |
 
 ## How it works
 
@@ -167,6 +169,15 @@ make pipeline                 # emergence, templating, extract, themes, analyst,
 make api                      # serve public_data/ at http://localhost:8000/api
 make web                      # radar UI at http://localhost:3000 (reads public_data/)
 ```
+
+Deploy (static files only; no API key is involved). From `frontend/`, after
+`vercel link`:
+
+```bash
+vercel build --prod && vercel deploy --prebuilt --prod
+```
+
+The build runs locally because it copies `public_data/` from outside `frontend/`.
 
 Synthetic data, for development without a download:
 

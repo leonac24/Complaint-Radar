@@ -26,19 +26,6 @@ signals, never as findings of wrongdoing.
 |---|---|
 | ![Skeptic checks on the payday cluster](docs/screenshots/skeptic.jpg) | ![Bank lens for Dave Operating](docs/screenshots/lens.jpg) |
 
-## Project status
-
-| Milestone | Status |
-|---|---|
-| 1. Skeleton, fixtures, tests | Done |
-| 2. Data: ingest, emergence, templating | Done, run on real data |
-| 3. AI layer: extract, themes, analyst, skeptic | Done, run on real data |
-| 4. Export and API | Done |
-| 5. Frontend radar | Done |
-| 6. Bank lens, backtests, method page | Done |
-| 7. Evaluation | Done (extractions rated by Claude, not a person) |
-| 8. Polish, screenshots, demo recording | Deployed; demo recording pending |
-
 ## How it works
 
 ```mermaid
@@ -242,33 +229,6 @@ public_data/       precomputed JSON for the deployed demo
   recent signals have the least text behind them.
 - **Label drift.** The CFPB uses near-duplicate issue labels, which can split one
   cluster in two.
-
-## Demo script (3 minutes)
-
-1. **Open the radar** (August 2026). The sweep turns; distance from the center is
-   velocity, size is volume, color is severity. Hollow rings are briefs the skeptic
-   rejected.
-2. **Press Play.** The slider runs from December 2025. Earlier months show statistics
-   only; watch the payday "can't stop withdrawals" cluster appear in June and move
-   toward the rim. At August the scope dims: public narrative publication ended that
-   month. Continue to the radar.
-3. **Click the outermost hollow ring** (rank 1 of 79, 1.77x). Walk through the themes:
-   the AI splits one CFPB category into ACH revocations refused, debits after payoff,
-   membership fees, and more.
-4. **Scroll to the skeptic's checks.** Size, templating, concentration, and evidence
-   pass; seasonality fails because complaints fell for two months after a June peak.
-   The fastest-rising cluster is rejected, and the reason is on screen.
-5. **Open a kept brief**: the credit bureau dispute-investigation cluster, a broad
-   market-wide rise with lift near 1 for each bureau.
-6. **Back on the payday brief, select Dave Operating** under top companies. The bank
-   lens shows lift 26 against peers, and its own complaints rising 2.4x against 1.3x
-   for everyone else in the cluster.
-7. **Backtests page.** One hit and two misses, stated plainly: the radar flagged the
-   advance-fee cluster a month before Colorado sued EarnIn, but missed the Brigit and
-   Credit Acceptance cases.
-8. **Close on the Method page**: the pipeline and model ids, 15 kept and 10 rejected,
-   88% extraction accuracy (rated by Claude, not a person), 90% theme stability, and
-   the limitations.
 
 ## Data source
 
